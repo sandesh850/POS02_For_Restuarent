@@ -189,6 +189,11 @@ namespace POS02_For_Restuarent
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+
+            /// 
+            /// Statep 01
+            ///
+
             // TMP code (TMP = tempory)
             //lbxBName.Items.Clear();
             //foreach(var data in Public_Items.barcode_item_names)
@@ -218,28 +223,47 @@ namespace POS02_For_Restuarent
 
             //Footer = 100 units
 
-            int width = 80;
-            int BillWidth = Convert.ToInt16(width / 25.4 * 100); // Bill width in milimeters (315 approximately)
+            /// 
+            /// Statep 02
+            /// 
 
-            int itemHeight_mm = 4; // 5mm per item line
-            int headerHeight_mm = 20;
-            int footerHeight_mm = 20;
-            int itemCount = 5;
+            //int width = 80;
+            //int BillWidth = Convert.ToInt16(width / 25.4 * 100); // Bill width in milimeters (315 approximately)
 
-            int height_mm = headerHeight_mm + (itemCount * itemHeight_mm) + footerHeight_mm;
-            int BillHeight = Convert.ToInt32(height_mm / 25.4 * 100); // ≈ 150
+            //int itemHeight_mm = 4; // 5mm per item line
+            //int headerHeight_mm = 20;
+            //int footerHeight_mm = 20;
+            //int itemCount = 5;
+
+            //int height_mm = headerHeight_mm + (itemCount * itemHeight_mm) + footerHeight_mm;
+            //int BillHeight = Convert.ToInt32(height_mm / 25.4 * 100); // ≈ 150
 
 
-            PaperSize customPaperSize = new PaperSize("Custom", /*width*/BillWidth, BillHeight/*height*/);// Width: ~80mm, Height: ~254mm
-            printDocument1.DefaultPageSettings.PaperSize = customPaperSize;
-            printDocument1.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0); //(optional)
-            //printDocument1.PrinterSettings.DefaultPageSettings.PrinterResolution.Kind = PrinterResolutionKind.High;(optional)
+            //PaperSize customPaperSize = new PaperSize("Custom", /*width*/BillWidth, BillHeight/*height*/);// Width: ~80mm, Height: ~254mm
+            //printDocument1.DefaultPageSettings.PaperSize = customPaperSize;
+            //printDocument1.DefaultPageSettings.Margins = new Margins(0, 0, 0, 0); //(optional)
+            ////printDocument1.PrinterSettings.DefaultPageSettings.PrinterResolution.Kind = PrinterResolutionKind.High;(optional)
+            //printPreviewDialog1.Document = printDocument1;
+
+            //printPreviewDialog1.ShowDialog();
+
+
+            // checking default width and height
+            //int width = printDocument1.DefaultPageSettings.PaperSize.Width;
+            //int height = printDocument1.DefaultPageSettings.PaperSize.Height;
+            //MessageBox.Show("width:"+width);
+            //MessageBox.Show("width:" + height);
+
+            int itemCount = 0;
+            itemCount = 5;
+            int dynmicHeight = 0;
+
+            dynmicHeight = 200 + (itemCount * 20);
+
+            printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custom",/*Width (80mm)*/315 , /*Height*/ dynmicHeight);
+
             printPreviewDialog1.Document = printDocument1;
-
             printPreviewDialog1.ShowDialog();
-
-
-
 
 
 
