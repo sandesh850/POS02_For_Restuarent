@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing.Printing;
 using System.Linq;
+using System.Drawing;
 using System.Windows.Forms;
 using POS02_For_Restuarent.ExternalClasses;
 
@@ -254,8 +255,11 @@ namespace POS02_For_Restuarent
             //MessageBox.Show("width:"+width);
             //MessageBox.Show("width:" + height);
 
+            ///
+            /// Step 03 Correct and working code
+            /// 
             int itemCount = 0;
-            itemCount = 5;
+            itemCount = 20;
             int dynmicHeight = 0;
 
             dynmicHeight = 200 + (itemCount * 20);
@@ -613,6 +617,20 @@ namespace POS02_For_Restuarent
            
 
 
+        }
+
+        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            Graphics graphics = e.Graphics;
+
+            graphics.DrawString("POS Bill", new Font("Arial",18,FontStyle.Bold), Brushes.Black, new Point(/*X*/100,/*Y*/ 5));
+
+            graphics.DrawString("Address", new Font("Arial",8,FontStyle.Regular), Brushes.Black, new Point(130, 35));
+
+            graphics.DrawString("+94 77 203645", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(110, 55));
+
+            graphics.DrawString("-----------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, 70));
+            
         }
     }
 }

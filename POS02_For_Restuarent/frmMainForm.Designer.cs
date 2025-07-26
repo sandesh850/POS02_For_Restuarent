@@ -693,6 +693,10 @@ namespace POS02_For_Restuarent
             this.panel1.Size = new System.Drawing.Size(464, 1042);
             this.panel1.TabIndex = 0;
             // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            // 
             // printPreviewDialog1
             // 
             this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
