@@ -33,7 +33,9 @@ namespace POS02_For_Restuarent.ExternalClasses
         public static List<double> barcode = new List<double>();
         public static List<double> barcode_Item_price = new List<double>();
         //public static List<double> total_price_of_barcodeItems = new List<double>();
-
+        
+        // Use to store barcode Item name and qty that use to print bill
+        public static Dictionary<string,int> Barcode_item_name_and_qty = new Dictionary<string,int>();
 
         /// <summary>
         /// Part 03

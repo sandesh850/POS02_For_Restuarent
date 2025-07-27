@@ -203,6 +203,7 @@ namespace POS02_For_Restuarent
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+           
 
             /// 
             /// Statep 01
@@ -601,88 +602,89 @@ namespace POS02_For_Restuarent
 
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
+           
 
-            String date = DateTime.Now.ToShortDateString();
-            string time = DateTime.Now.ToShortTimeString();
+            //String date = DateTime.Now.ToShortDateString();
+            //string time = DateTime.Now.ToShortTimeString();
 
-            Graphics graphics = e.Graphics; // Retrieving page canvas 
+            //Graphics graphics = e.Graphics; // Retrieving page canvas 
 
-            // Header area
-            graphics.DrawString("POS Bill", new Font("Arial",18,FontStyle.Bold), Brushes.Black, new Point(/*X*/100,/*Y*/ 5));
+            //// Header area
+            //graphics.DrawString("POS Bill", new Font("Arial",18,FontStyle.Bold), Brushes.Black, new Point(/*X*/100,/*Y*/ 5));
 
-            graphics.DrawString("Address", new Font("Arial",8,FontStyle.Regular), Brushes.Black, new Point(130, 35));
+            //graphics.DrawString("Address", new Font("Arial",8,FontStyle.Regular), Brushes.Black, new Point(130, 35));
 
-            graphics.DrawString("+94 77 203645", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(110, 55));
+            //graphics.DrawString("+94 77 203645", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(110, 55));
 
-            graphics.DrawString(date , new Font("Arial",8,FontStyle.Regular), Brushes.Black, new Point(5,80));
+            //graphics.DrawString(date , new Font("Arial",8,FontStyle.Regular), Brushes.Black, new Point(5,80));
 
-            graphics.DrawString(time, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(75, 80));
+            //graphics.DrawString(time, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(75, 80));
 
-            graphics.DrawString("Bill No", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(250, 80));
+            //graphics.DrawString("Bill No", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(250, 80));
 
-            graphics.DrawString("-----------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, 95));
+            //graphics.DrawString("-----------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, 95));
 
-            // Body area (body area header)
-            graphics.DrawString("Item", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(5, 120));
+            //// Body area (body area header)
+            //graphics.DrawString("Item", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(5, 120));
 
-            graphics.DrawString("Price", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(150, 120));
+            //graphics.DrawString("Price", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(150, 120));
 
-            graphics.DrawString("Qty", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(200, 120));
+            //graphics.DrawString("Qty", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(200, 120));
 
-            graphics.DrawString("Amount", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(250, 120));
+            //graphics.DrawString("Amount", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(250, 120));
 
-            graphics.DrawString("-----------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, 130));
+            //graphics.DrawString("-----------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, 130));
 
-            // Non barcode item names adding to the bill
-            int initial_value_of_position = 145;
+            //// Non barcode item names adding to the bill
+            //int initial_value_of_position = 145;
 
-            foreach(string item in Public_Items.non_barcodeItem_Names)
-            {
-                graphics.DrawString(item, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(5, initial_value_of_position));
-                initial_value_of_position = initial_value_of_position + 20;
-            }
-
-
-            // Non barcode item price adding to the bill
-            int initial_value_of_position02 = 145;
-
-            foreach (double item in Public_Items.non_barcodeItem_Price)
-            {
-                graphics.DrawString(item.ToString(), new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(150, initial_value_of_position02));
-                initial_value_of_position02 = initial_value_of_position02 + 20;
-            }
-
-            // Non barcode item qty adding to the bill
-            int initial_value_of_position03 = 145;
-
-            foreach (double item in Public_Items.non_barcodeItem_qty)
-            {
-                graphics.DrawString(item.ToString(), new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(200, initial_value_of_position03));
-                initial_value_of_position03 = initial_value_of_position03 + 20;
-            }
+            //foreach(string item in Public_Items.non_barcodeItem_Names)
+            //{
+            //    graphics.DrawString(item, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(5, initial_value_of_position));
+            //    initial_value_of_position = initial_value_of_position + 20;
+            //}
 
 
-            // Non barcode item amount adding to the bill
-            int initial_value_of_position04 = 145;
+            //// Non barcode item price adding to the bill
+            //int initial_value_of_position02 = 145;
 
-            foreach (double item in Public_Items.Amount)
-            {
-                graphics.DrawString(item.ToString(), new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(250, initial_value_of_position04));
-                initial_value_of_position04 = initial_value_of_position04 + 20;
-            }
+            //foreach (double item in Public_Items.non_barcodeItem_Price)
+            //{
+            //    graphics.DrawString(item.ToString(), new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(150, initial_value_of_position02));
+            //    initial_value_of_position02 = initial_value_of_position02 + 20;
+            //}
 
-            ///
-            /// Barcode item inserting section to the bill
-            /// 
+            //// Non barcode item qty adding to the bill
+            //int initial_value_of_position03 = 145;
 
-            // Inserting barcode item names
-            //int initial_value_of_position05 = 145;
+            //foreach (double item in Public_Items.non_barcodeItem_qty)
+            //{
+            //    graphics.DrawString(item.ToString(), new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(200, initial_value_of_position03));
+            //    initial_value_of_position03 = initial_value_of_position03 + 20;
+            //}
 
-            foreach (string item in Public_Items.barcode_item_names)
-            {
-                graphics.DrawString(item, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(5, initial_value_of_position));
-                initial_value_of_position = initial_value_of_position + 20; // In here to calculate initial_value_of_position used tha same variable use in above non barcode section (name section)
-            }
+
+            //// Non barcode item amount adding to the bill
+            //int initial_value_of_position04 = 145;
+
+            //foreach (double item in Public_Items.Amount)
+            //{
+            //    graphics.DrawString(item.ToString(), new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(250, initial_value_of_position04));
+            //    initial_value_of_position04 = initial_value_of_position04 + 20;
+            //}
+
+            /////
+            ///// Barcode item inserting section to the bill
+            ///// 
+
+            //// Inserting barcode item names
+            ////int initial_value_of_position05 = 145;
+
+            //foreach (string item in Public_Items.barcode_item_names)
+            //{
+            //    graphics.DrawString(item, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(5, initial_value_of_position));
+            //    initial_value_of_position = initial_value_of_position + 20; // In here to calculate initial_value_of_position used tha same variable use in above non barcode section (name section)
+            //}
 
 
         }

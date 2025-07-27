@@ -87,6 +87,7 @@ namespace POS02_For_Restuarent
             this.panel1 = new System.Windows.Forms.Panel();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.lbxTesting = new System.Windows.Forms.ListBox();
             this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv)).BeginInit();
             this.panel2.SuspendLayout();
@@ -707,6 +708,17 @@ namespace POS02_For_Restuarent
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
+            // lbxTesting
+            // 
+            this.lbxTesting.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbxTesting.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbxTesting.FormattingEnabled = true;
+            this.lbxTesting.ItemHeight = 20;
+            this.lbxTesting.Location = new System.Drawing.Point(436, 290);
+            this.lbxTesting.Name = "lbxTesting";
+            this.lbxTesting.Size = new System.Drawing.Size(251, 324);
+            this.lbxTesting.TabIndex = 29;
+            // 
             // frmMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -714,6 +726,7 @@ namespace POS02_For_Restuarent
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1838, 1055);
+            this.Controls.Add(this.lbxTesting);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.Dgv);
             this.Controls.Add(this.lblTime);
@@ -795,6 +808,7 @@ namespace POS02_For_Restuarent
         private Panel panel1;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private PrintPreviewDialog printPreviewDialog1;
+        private ListBox lbxTesting;
     }
 }
 
