@@ -179,7 +179,20 @@ namespace POS02_For_Restuarent
 
         private void lbxNone_barcode_Items_search_SelectedIndexChanged(object sender, EventArgs e)
         {
-            tbxSearch.Text = lbxNone_barcode_Items_search.SelectedItem.ToString();
+            try
+            {
+                if (lbxNone_barcode_Items_search.SelectedItem != null)
+                {
+                    tbxSearch.Text = lbxNone_barcode_Items_search.SelectedItem.ToString();
+                }
+
+                
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+           
             
         }
 
@@ -311,6 +324,7 @@ namespace POS02_For_Restuarent
 
                                 int qty_of_item = Public_Items.non_barcodeItem_qty[index];
 
+                                
                                 /// Modifying qty value of text box
                                 double existingValue = 0;
                                 double newQTY = 0;
@@ -352,16 +366,14 @@ namespace POS02_For_Restuarent
                                 /// Removing item name from lbxIncluded_Items_tothe_bill
                                 lbxIncluded_items_to_the_bill.Items.Remove(non_barcode_item_names);
 
+                                /// Removing value from amount list
+                                Public_Items.Amount.RemoveAt(index);
 
-                                //foreach(string names in Public_Items.non_barcodeItem_Names )
-                                //{
-                                //    lbxtesting.Items.Add(names);
-                                //}
+                                /// Removing value from non barcode item prices list
+                                Public_Items.non_barcodeItem_Price.RemoveAt(index);
 
-                                //foreach (double qty in Public_Items.non_barcodeItem_qty)
-                                //{
-                                //    lbxTesting_barcodePrices.Items.Add(qty);
-                                //}
+
+
                                 break;
 
                             }
@@ -469,13 +481,7 @@ namespace POS02_For_Restuarent
 
         private void tbxBarcode_TextChanged(object sender, EventArgs e)
         {
-            //lbxtesting.Items.Clear();
-            //lbxtesting.Refresh();
-            //lbxTesting_barcodePrices.Items.Clear();
-            //lbxTesting_barcodePrices.Refresh();
-
-            //lbxItemNames.Items.Clear();
-            //lbxItemNames.Refresh();
+            
 
             //Step 01
             if (Program.ds.Tables["TblBarcode_Details_dst"] != null)
@@ -493,32 +499,17 @@ namespace POS02_For_Restuarent
                 
                 // step 02 || inserting values into the list
                 Public_Items.barcode_item_names.Add(Program.ds.Tables["TblBarcode_Details_dst"].Rows[0]["ItemName"].ToString());
-                //foreach (string data in Public_Items.barcode_item_names)
-                //{
-                //    lbxItemNames.Items.Add(data);
-                //}
+               
 
                 Public_Items.barcode.Add(Convert.ToDouble( Program.ds.Tables["TblBarcode_Details_dst"].Rows[0]["Barcode"]));
 
-                //foreach (double data in Public_Items.barcode)
-                //{
-                //    lbxtesting.Items.Add(data);
-                //}
+                
 
                 Public_Items.barcode_Item_price.Add(Convert.ToDouble(Program.ds.Tables["TblBarcode_Details_dst"].Rows[0]["Price"]));
 
-                //foreach (double data in Public_Items.barcode)
-                //{
-                //   // lbxTesting_barcodePrices.Items.Add(data);
-                //}
+               
             }
-            ////step 03
-            //double sum = Public_Items.barcode_Item_price.Sum();
-            //double existig_value_of_tbxTotal = Convert.ToDouble(tbxTotal.Text);
-
-            //double total_of_both_val = sum + existig_value_of_tbxTotal;
-            //tbxTotal.Text = total_of_both_val.ToString();
-
+           
         }
 
         private void btnSumOfBarcodeItems_Click(object sender, EventArgs e)
@@ -548,18 +539,7 @@ namespace POS02_For_Restuarent
 
             Public_Items.barcode_Item_price.Clear();
 
-            /// use for testing
-            //foreach(double data in Public_Items.barcode_item_prices_02)
-            //{
-            //    lbxBarcode.Items.Add(data.ToString());
-            //}
-            ///// use for testing
-            //foreach (double data in Public_Items.barcode)
-            //{
-            //    lbxBprice.Items.Add(data.ToString());
-            //}
-
-
+            
             /// step 04 || inserting item names to the lbxIncluded_items_to_the_bill
             foreach (string barcode_ItemNames in Public_Items.barcode_item_names)
             {
@@ -621,6 +601,7 @@ namespace POS02_For_Restuarent
 
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
+
             String date = DateTime.Now.ToShortDateString();
             string time = DateTime.Now.ToShortTimeString();
 
@@ -652,13 +633,55 @@ namespace POS02_For_Restuarent
 
             graphics.DrawString("-----------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, 130));
 
-
+            // Non barcode item names adding to the bill
             int initial_value_of_position = 145;
 
             foreach(string item in Public_Items.non_barcodeItem_Names)
             {
-                graphics.DrawString(item, new Font(item, 8, FontStyle.Regular), Brushes.Black, new Point(5, initial_value_of_position));
+                graphics.DrawString(item, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(5, initial_value_of_position));
                 initial_value_of_position = initial_value_of_position + 20;
+            }
+
+
+            // Non barcode item price adding to the bill
+            int initial_value_of_position02 = 145;
+
+            foreach (double item in Public_Items.non_barcodeItem_Price)
+            {
+                graphics.DrawString(item.ToString(), new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(150, initial_value_of_position02));
+                initial_value_of_position02 = initial_value_of_position02 + 20;
+            }
+
+            // Non barcode item qty adding to the bill
+            int initial_value_of_position03 = 145;
+
+            foreach (double item in Public_Items.non_barcodeItem_qty)
+            {
+                graphics.DrawString(item.ToString(), new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(200, initial_value_of_position03));
+                initial_value_of_position03 = initial_value_of_position03 + 20;
+            }
+
+
+            // Non barcode item amount adding to the bill
+            int initial_value_of_position04 = 145;
+
+            foreach (double item in Public_Items.Amount)
+            {
+                graphics.DrawString(item.ToString(), new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(250, initial_value_of_position04));
+                initial_value_of_position04 = initial_value_of_position04 + 20;
+            }
+
+            ///
+            /// Barcode item inserting section to the bill
+            /// 
+
+            // Inserting barcode item names
+            //int initial_value_of_position05 = 145;
+
+            foreach (string item in Public_Items.barcode_item_names)
+            {
+                graphics.DrawString(item, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(5, initial_value_of_position));
+                initial_value_of_position = initial_value_of_position + 20; // In here to calculate initial_value_of_position used tha same variable use in above non barcode section (name section)
             }
 
 

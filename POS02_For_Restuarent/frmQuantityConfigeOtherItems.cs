@@ -110,6 +110,14 @@ namespace POS02_For_Restuarent
                 // Inserting non_barcode item price into list
                 Public_Items.non_barcodeItem_Price.Add(non_barcode_item_price);
 
+                // calculating amount (in bill/ part of the bill. not in this form)
+                int Bill_QTY = 0;
+                Bill_QTY = Convert.ToInt16(tbxquantity.Text);
+
+                double amount = 0;
+                amount = Bill_QTY * non_barcode_item_price;
+                Public_Items.Amount.Add(amount);
+
                 // calculating the total of all item (ex: fish bun , 4, 4 x Rs.450)
                 double existing_value_of_tbxTotal = 0;
                 double qty = 0;
