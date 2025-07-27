@@ -641,7 +641,7 @@ namespace POS02_For_Restuarent
 
             graphics.DrawString("-----------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, 95));
 
-            // Body area
+            // Body area (body area header)
             graphics.DrawString("Item", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(5, 120));
 
             graphics.DrawString("Price", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(150, 120));
@@ -649,6 +649,17 @@ namespace POS02_For_Restuarent
             graphics.DrawString("Qty", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(200, 120));
 
             graphics.DrawString("Amount", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(250, 120));
+
+            graphics.DrawString("-----------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, 130));
+
+
+            int initial_value_of_position = 145;
+
+            foreach(string item in Public_Items.non_barcodeItem_Names)
+            {
+                graphics.DrawString(item, new Font(item, 8, FontStyle.Regular), Brushes.Black, new Point(5, initial_value_of_position));
+                initial_value_of_position = initial_value_of_position + 20;
+            }
 
 
         }

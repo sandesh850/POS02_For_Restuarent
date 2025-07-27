@@ -106,6 +106,10 @@ namespace POS02_For_Restuarent
                 Program.da.Fill(Program.ds, "TblNoN_BarcodeItems_prices_dst");
 
                 double non_barcode_item_price = Convert.ToDouble(Program.ds.Tables["TblNoN_BarcodeItems_prices_dst"].Rows[0]["Price"]);
+
+                // Inserting non_barcode item price into list
+                Public_Items.non_barcodeItem_Price.Add(non_barcode_item_price);
+
                 // calculating the total of all item (ex: fish bun , 4, 4 x Rs.450)
                 double existing_value_of_tbxTotal = 0;
                 double qty = 0;

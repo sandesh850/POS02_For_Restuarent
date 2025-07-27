@@ -15,12 +15,14 @@ namespace POS02_For_Restuarent.ExternalClasses
 
         // list for non-barcode item names
         public static List<string> non_barcodeItem_Names = new List<string>();
-        //public static Int32 count_of_non_barcode_items = 0;
+
+        // list for non-barcode item price
+        public static List<double> non_barcodeItem_Price = new List<double>();
 
         // list for non-barcode item qty
         public static List<int> non_barcodeItem_qty = new List<int>();
-        //public static Int32 count_of_qty = 0;
 
+       
         /// <summary>
         /// part 02 || Barcode items 
         /// </summary>
