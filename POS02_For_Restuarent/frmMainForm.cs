@@ -621,16 +621,36 @@ namespace POS02_For_Restuarent
 
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
-            Graphics graphics = e.Graphics;
+            String date = DateTime.Now.ToShortDateString();
+            string time = DateTime.Now.ToShortTimeString();
 
+            Graphics graphics = e.Graphics; // Retrieving page canvas 
+
+            // Header area
             graphics.DrawString("POS Bill", new Font("Arial",18,FontStyle.Bold), Brushes.Black, new Point(/*X*/100,/*Y*/ 5));
 
             graphics.DrawString("Address", new Font("Arial",8,FontStyle.Regular), Brushes.Black, new Point(130, 35));
 
             graphics.DrawString("+94 77 203645", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(110, 55));
 
-            graphics.DrawString("-----------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, 70));
-            
+            graphics.DrawString(date , new Font("Arial",8,FontStyle.Regular), Brushes.Black, new Point(5,80));
+
+            graphics.DrawString(time, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(75, 80));
+
+            graphics.DrawString("Bill No", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(250, 80));
+
+            graphics.DrawString("-----------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, 95));
+
+            // Body area
+            graphics.DrawString("Item", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(5, 120));
+
+            graphics.DrawString("Price", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(150, 120));
+
+            graphics.DrawString("Qty", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(200, 120));
+
+            graphics.DrawString("Amount", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(250, 120));
+
+
         }
     }
 }
