@@ -36,7 +36,18 @@ namespace POS02_For_Restuarent
                 {
                    selectedBarcodeItemCount++;
                 }
+               
 
+            }
+
+            // Use to count the existing barcode item count after clicking print button
+            // Reson for use thiscode: After clicking print button, the barcode item name remove from the barcode_item_names list
+            foreach (KeyValuePair<string, int> pair in Public_Items.Barcode_item_name_and_qty)
+            {
+                if ($"{pair.Key}".Contains(Public_Items.barcodeItemThatSelectedToRemove))
+                {
+                    selectedBarcodeItemCount = Convert.ToInt32( $"{pair.Value}");
+                }
             }
 
             tbxSelectedItemCount.Text = selectedBarcodeItemCount.ToString();
@@ -44,6 +55,10 @@ namespace POS02_For_Restuarent
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
+            ///
+            /// Part 01
+            /// 
+
             // Step 01
             string ItemNameFromDatabase = "";
             var Barcode = "";
