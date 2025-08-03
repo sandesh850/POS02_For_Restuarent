@@ -203,7 +203,7 @@ namespace POS02_For_Restuarent
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-           
+
 
             /// 
             /// Statep 01
@@ -270,18 +270,68 @@ namespace POS02_For_Restuarent
             //MessageBox.Show("width:" + height);
 
             ///
-            /// Step 03 Correct and working code
+            /// Step 03
             /// 
-            int itemCount = 0;
-            itemCount = 20;
-            int dynmicHeight = 0;
+            string ItemNameThatUsedToFindQTY = "";
+            int qty_of_one_item = 0;
 
-            dynmicHeight = 200 + (itemCount * 20);
 
-            printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custom",/*Width (80mm)*/315 , /*Height*/ dynmicHeight);
+            if(lbxTesting_BCR_names.Items.Count > 0)
+            {
+                lbxTesting_BCR_names.Items.Clear();
+            }
 
-            printPreviewDialog1.Document = printDocument1;
-            printPreviewDialog1.ShowDialog();
+            //Step 01 of the loop
+            foreach(string data in Public_Items.barcode_item_names.ToList())
+            {
+                //lbxTesting.Items.Add(data);
+                ItemNameThatUsedToFindQTY = data;
+               if(ItemNameThatUsedToFindQTY == data)
+               {
+                    //Step 02 of the loop
+                    foreach (string names in  Public_Items.barcode_item_names)
+                    {
+                        if(ItemNameThatUsedToFindQTY == names)
+                        {
+                            qty_of_one_item++;
+                        }
+                    
+                    }
+
+                    if(!Public_Items.Barcode_item_name_and_qty.ContainsKey(ItemNameThatUsedToFindQTY))
+                    {
+                        Public_Items.Barcode_item_name_and_qty.Add(ItemNameThatUsedToFindQTY, qty_of_one_item);
+                    }
+
+                   
+                    Public_Items.barcode_item_names.Remove(ItemNameThatUsedToFindQTY);
+                    ItemNameThatUsedToFindQTY = "";
+                    qty_of_one_item = 0;
+
+               }
+
+            }
+
+            lbxTesting_BCR_names.Items.Clear();
+            foreach(KeyValuePair<string,int> pair in Public_Items.Barcode_item_name_and_qty)
+            {
+                lbxTesting_BCR_names.Items.Add($"{pair.Key} ={pair.Value}");
+            }
+
+
+            ///
+            /// Step 04 Correct and working code
+            /// 
+            //int itemCount = 0;
+            //itemCount = 20;
+            //int dynmicHeight = 0;
+
+            //dynmicHeight = 200 + (itemCount * 20);
+
+            //printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custom",/*Width (80mm)*/315 , /*Height*/ dynmicHeight);
+
+            //printPreviewDialog1.Document = printDocument1;
+            //printPreviewDialog1.ShowDialog();
 
 
 
