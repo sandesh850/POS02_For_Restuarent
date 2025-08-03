@@ -748,12 +748,25 @@ namespace POS02_For_Restuarent
             // Inserting barcode item names
             //int initial_value_of_position05 = 145;
 
+            int count = 0;
+            int existing_barcode_item_count = 0;
+
+            existing_barcode_item_count = Convert.ToInt16(Public_Items.barcode_item_prices_02.Count);
+
             foreach (KeyValuePair<string,int> pair in Public_Items.Barcode_item_name_and_qty)
             {
                 graphics.DrawString($"{pair.Key}", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(5, initial_value_of_position));
                 initial_value_of_position = initial_value_of_position + 20; // In here to calculate initial_value_of_position used tha same variable use in above non barcode section (name section)
+
             }
 
+           
+            // Inserting barcode item prices
+            foreach (double item in Public_Items.barcode_item_prices_02)
+            {
+                graphics.DrawString(item.ToString(), new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(150, initial_value_of_position04));
+                initial_value_of_position04 = initial_value_of_position04 + 20;
+            }
 
         }
     }
