@@ -814,40 +814,34 @@ namespace POS02_For_Restuarent
             /// 
 
             // Purpose : calculating barcode item amout (single item)
-            double one_item_qty = 0;
+            double one_item_price = 0;
             double total = 0;
-            List<double> Lst_amounts = new List<double>();
-
-            foreach (KeyValuePair<string, int> pair in Public_Items.Barcode_item_name_and_qty)
+            List<double> Lst_amouts = new List<double>();
+            foreach(KeyValuePair<string,int> pair in Public_Items.Barcode_item_name_and_qty)
             {
-                one_item_qty = pair.Value;
-                foreach(double  barcode_item_price in Lst_barcode_item_prices)
+                if (Program.ds.Tables["Tbl_barcode_Items_prices_dst"] != null)
                 {
-                    total = one_item_qty * barcode_item_price;
-                    if(total != 0)
-                    {
-                        Lst_amounts.Add(total);
-                        total = 0;
-                    }
+                    Program.ds.Tables["Tbl_barcode_Items_prices_dst"].Clear();
                 }
-                break;
+                
+                Program.da = new SqlDataAdapter("SELECT Price FROM TblBarcode_Items WHERE ItemName='"+ pair.Key + "' ",Program.con);
+                Program.da.Fill(Program.ds, "Tbl_barcode_Items_prices_dst");
+
+                one_item_price = Convert.ToDouble(Program.ds.Tables["Tbl_barcode_Items_prices_dst"].Rows[0]["Price"]);
+
+                total = one_item_price * pair.Value;
+                Lst_amouts.Add(total);
+               
             }
 
-            foreach (double item in Lst_amounts)
+            //Inserting values
+            foreach (double item in Lst_amouts)
             {
                 graphics.DrawString(item.ToString(), new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(250, initial_value_of_position04));
                 initial_value_of_position04 = initial_value_of_position04 + 20;
             }
 
-            // Purpose: Testing 
-            //if (lbxTesting.Items.Count > 0)
-            //{
-            //    lbxTesting.Items.Clear();
-            //}
-            //foreach (double testing in Lst_amounts)
-            //{
-            //    lbxTesting.Items.Add(testing);
-            //}
+
         }
     }
 }
