@@ -276,10 +276,10 @@ namespace POS02_For_Restuarent
             int qty_of_one_item = 0;
 
 
-            if(lbxTesting_BCR_names.Items.Count > 0)
-            {
-                lbxTesting_BCR_names.Items.Clear();
-            }
+            //if(lbxTesting_BCR_names.Items.Count > 0)
+            //{
+            //    lbxTesting_BCR_names.Items.Clear();
+            //}
 
             //Step 01 of the loop
             foreach(string data in Public_Items.barcode_item_names.ToList())
@@ -342,8 +342,8 @@ namespace POS02_For_Restuarent
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 /// Step 01
                 if (DialogResult.Yes == MessageBox.Show("Are you sure about this?","Warning",MessageBoxButtons.YesNo,MessageBoxIcon.Warning))
                 {
@@ -478,11 +478,11 @@ namespace POS02_For_Restuarent
 
 
 
-            }
-            catch(Exception error)
-            {
-                MessageBox.Show(error.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
-            }
+            //}
+            //catch(Exception error)
+            //{
+            //    MessageBox.Show(error.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            //}
 
 
 
@@ -763,29 +763,37 @@ namespace POS02_For_Restuarent
             //    initial_value_of_position04 = initial_value_of_position04 + 20;
             //}
 
+
+            ///
+            /// Inserting barcode item details
+            ///
             string itemName = "";
-            List<double> barcode_item_prices = new List<double>();
+            List<double> Lst_barcode_item_prices = new List<double>();
 
             if (Program.ds.Tables["TblBarcode_Item_prices_dst"] != null)
             {
                 Program.ds.Tables["TblBarcode_Item_prices_dst"].Clear();
             }
 
+            // Retrieving one item price from database to insert bill
             foreach (KeyValuePair<string, int> pair in Public_Items.Barcode_item_name_and_qty)
             {
                 itemName = pair.Key;
-                Program.da = new SqlDataAdapter("SELECT Price FROM TblBarcode_Items WHERE ItemName='"+itemName+"' ",Program.con);
-                Program.da.Fill(Program.ds,"TblBarcode_Item_prices_dst");
+                Program.da = new SqlDataAdapter("SELECT Price FROM TblBarcode_Items WHERE ItemName='" + itemName + "' ", Program.con);
+                Program.da.Fill(Program.ds, "TblBarcode_Item_prices_dst");
 
             }
 
-            foreach(DataRow prices in Program.ds.Tables["TblBarcode_Item_prices_dst"].Rows)
+            if (Program.ds.Tables["TblBarcode_Item_prices_dst"] != null)
             {
-                barcode_item_prices.Add(Convert.ToDouble( prices["Price"]));
+                foreach (DataRow prices in Program.ds.Tables["TblBarcode_Item_prices_dst"].Rows)
+                {
+                    Lst_barcode_item_prices.Add(Convert.ToDouble(prices["Price"]));
+                }
             }
 
-            // Inserting barcode item names and qty
-            foreach (KeyValuePair<string,int> pair in Public_Items.Barcode_item_name_and_qty)
+            //inserting barcode item names and qty into bill
+            foreach (KeyValuePair<string, int> pair in Public_Items.Barcode_item_name_and_qty)
             {
                 graphics.DrawString($"{pair.Key}", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(5, initial_value_of_position));
                 initial_value_of_position = initial_value_of_position + 20; // In here to calculate initial_value_of_position used tha same variable use in above non barcode section (name section)
@@ -794,12 +802,52 @@ namespace POS02_For_Restuarent
                 initial_value_of_position03 = initial_value_of_position03 + 20;
             }
 
-            foreach(double data in barcode_item_prices)
+            // inserting barcode item prices
+            foreach (double data in Lst_barcode_item_prices)
             {
                 graphics.DrawString(data.ToString(), new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(150, initial_value_of_position02));
                 initial_value_of_position02 = initial_value_of_position02 + 20;
             }
 
+            ///
+            /// Inserting amout (total)
+            /// 
+
+            // Purpose : calculating barcode item amout (single item)
+            double one_item_qty = 0;
+            double total = 0;
+            List<double> Lst_amounts = new List<double>();
+
+            foreach (KeyValuePair<string, int> pair in Public_Items.Barcode_item_name_and_qty)
+            {
+                one_item_qty = pair.Value;
+                foreach(double  barcode_item_price in Lst_barcode_item_prices)
+                {
+                    total = one_item_qty * barcode_item_price;
+                    if(total != 0)
+                    {
+                        Lst_amounts.Add(total);
+                        total = 0;
+                    }
+                }
+                break;
+            }
+
+            foreach (double item in Lst_amounts)
+            {
+                graphics.DrawString(item.ToString(), new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(250, initial_value_of_position04));
+                initial_value_of_position04 = initial_value_of_position04 + 20;
+            }
+
+            // Purpose: Testing 
+            //if (lbxTesting.Items.Count > 0)
+            //{
+            //    lbxTesting.Items.Clear();
+            //}
+            //foreach (double testing in Lst_amounts)
+            //{
+            //    lbxTesting.Items.Add(testing);
+            //}
         }
     }
 }

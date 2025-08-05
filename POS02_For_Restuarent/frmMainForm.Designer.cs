@@ -87,8 +87,7 @@ namespace POS02_For_Restuarent
             this.panel1 = new System.Windows.Forms.Panel();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-            this.lbxTesting_BCR_names = new System.Windows.Forms.ListBox();
-            this.lbxTesting_BCR_qty = new System.Windows.Forms.ListBox();
+            this.lbxTesting = new System.Windows.Forms.ListBox();
             this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv)).BeginInit();
             this.panel2.SuspendLayout();
@@ -709,27 +708,16 @@ namespace POS02_For_Restuarent
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
-            // lbxTesting_BCR_names
+            // lbxTesting
             // 
-            this.lbxTesting_BCR_names.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbxTesting_BCR_names.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbxTesting_BCR_names.FormattingEnabled = true;
-            this.lbxTesting_BCR_names.ItemHeight = 20;
-            this.lbxTesting_BCR_names.Location = new System.Drawing.Point(436, 290);
-            this.lbxTesting_BCR_names.Name = "lbxTesting_BCR_names";
-            this.lbxTesting_BCR_names.Size = new System.Drawing.Size(251, 324);
-            this.lbxTesting_BCR_names.TabIndex = 29;
-            // 
-            // lbxTesting_BCR_qty
-            // 
-            this.lbxTesting_BCR_qty.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbxTesting_BCR_qty.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbxTesting_BCR_qty.FormattingEnabled = true;
-            this.lbxTesting_BCR_qty.ItemHeight = 20;
-            this.lbxTesting_BCR_qty.Location = new System.Drawing.Point(747, 290);
-            this.lbxTesting_BCR_qty.Name = "lbxTesting_BCR_qty";
-            this.lbxTesting_BCR_qty.Size = new System.Drawing.Size(251, 324);
-            this.lbxTesting_BCR_qty.TabIndex = 32;
+            this.lbxTesting.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbxTesting.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbxTesting.FormattingEnabled = true;
+            this.lbxTesting.ItemHeight = 20;
+            this.lbxTesting.Location = new System.Drawing.Point(747, 290);
+            this.lbxTesting.Name = "lbxTesting";
+            this.lbxTesting.Size = new System.Drawing.Size(251, 324);
+            this.lbxTesting.TabIndex = 32;
             // 
             // frmMainForm
             // 
@@ -738,8 +726,7 @@ namespace POS02_For_Restuarent
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1838, 1055);
-            this.Controls.Add(this.lbxTesting_BCR_qty);
-            this.Controls.Add(this.lbxTesting_BCR_names);
+            this.Controls.Add(this.lbxTesting);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.Dgv);
             this.Controls.Add(this.lblTime);
@@ -821,8 +808,7 @@ namespace POS02_For_Restuarent
         private Panel panel1;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private PrintPreviewDialog printPreviewDialog1;
-        private ListBox lbxTesting_BCR_names;
-        private ListBox lbxTesting_BCR_qty;
+        private ListBox lbxTesting;
     }
 }
 
