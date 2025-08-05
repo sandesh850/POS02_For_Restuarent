@@ -748,24 +748,56 @@ namespace POS02_For_Restuarent
             // Inserting barcode item names
             //int initial_value_of_position05 = 145;
 
-            int count = 0;
-            int existing_barcode_item_count = 0;
+            //foreach (KeyValuePair<string,int> pair in Public_Items.Barcode_item_name_and_qty)
+            //{
+            //    graphics.DrawString($"{pair.Key}", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(5, initial_value_of_position));
+            //    initial_value_of_position = initial_value_of_position + 20; // In here to calculate initial_value_of_position used tha same variable use in above non barcode section (name section)
 
-            existing_barcode_item_count = Convert.ToInt16(Public_Items.barcode_item_prices_02.Count);
+            //}
 
+
+            //// Inserting barcode item prices
+            //foreach (double item in Public_Items.barcode_item_prices_02)
+            //{
+            //    graphics.DrawString(item.ToString(), new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(150, initial_value_of_position04));
+            //    initial_value_of_position04 = initial_value_of_position04 + 20;
+            //}
+
+            string itemName = "";
+            List<double> barcode_item_prices = new List<double>();
+
+            if (Program.ds.Tables["TblBarcode_Item_prices_dst"] != null)
+            {
+                Program.ds.Tables["TblBarcode_Item_prices_dst"].Clear();
+            }
+
+            foreach (KeyValuePair<string, int> pair in Public_Items.Barcode_item_name_and_qty)
+            {
+                itemName = pair.Key;
+                Program.da = new SqlDataAdapter("SELECT Price FROM TblBarcode_Items WHERE ItemName='"+itemName+"' ",Program.con);
+                Program.da.Fill(Program.ds,"TblBarcode_Item_prices_dst");
+
+            }
+
+            foreach(DataRow prices in Program.ds.Tables["TblBarcode_Item_prices_dst"].Rows)
+            {
+                barcode_item_prices.Add(Convert.ToDouble( prices["Price"]));
+            }
+
+            // Inserting barcode item names and qty
             foreach (KeyValuePair<string,int> pair in Public_Items.Barcode_item_name_and_qty)
             {
                 graphics.DrawString($"{pair.Key}", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(5, initial_value_of_position));
                 initial_value_of_position = initial_value_of_position + 20; // In here to calculate initial_value_of_position used tha same variable use in above non barcode section (name section)
 
+                graphics.DrawString($"{pair.Value}", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(200, initial_value_of_position03));
+                initial_value_of_position03 = initial_value_of_position03 + 20;
             }
 
-           
-            // Inserting barcode item prices
-            foreach (double item in Public_Items.barcode_item_prices_02)
+            foreach(double data in barcode_item_prices)
             {
-                graphics.DrawString(item.ToString(), new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(150, initial_value_of_position04));
-                initial_value_of_position04 = initial_value_of_position04 + 20;
+                graphics.DrawString(data.ToString(), new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(150, initial_value_of_position02));
+                initial_value_of_position02 = initial_value_of_position02 + 20;
             }
 
         }
