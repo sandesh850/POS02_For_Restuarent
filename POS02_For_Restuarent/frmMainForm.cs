@@ -270,7 +270,8 @@ namespace POS02_For_Restuarent
             //MessageBox.Show("width:" + height);
 
             ///
-            /// Step 03 // Algorithm type =  Counting / Frequency algorithm
+            /// Step 03 // Algorithm type =  Counting / Frequency algorithm (This code is use to find barcode item qty and insert those new data into 
+            /// "Barcode_item_name_and_qty" list that use to print final Bill)
             /// 
             string ItemNameThatUsedToFindQTY = "";
             int qty_of_one_item = 0;
@@ -326,10 +327,10 @@ namespace POS02_For_Restuarent
             /// Step 04 Correct and working code
             /// 
             int itemCount = 0;
-            itemCount = 20;
+            itemCount = Convert.ToInt16( Public_Items.non_barcodeItem_Names.Count + Public_Items.Barcode_item_name_and_qty.Count);
             int dynmicHeight = 0;
 
-            dynmicHeight = 200 + (itemCount * 20);
+            dynmicHeight = 200 + (itemCount * 20); /*20 is a space value that single item get from the Bill*/
 
             printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custom",/*Width (80mm)*/315, /*Height*/ dynmicHeight);
 
