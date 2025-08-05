@@ -104,6 +104,47 @@ namespace POS02_For_Restuarent
                 Public_Items.barcode_item_prices_02.Remove(price);
                count++;
             }
+
+            // Updating Barcode item name and qty list in public item class (when removing barcode item qty) | This code execute after click on print button
+            // start 
+            string SelectedItemNameToRemove = string.Empty;
+            int existingItemCount = 0;
+            int valueThatNeedToRemove = 0;
+            int newValue = 0; 
+
+            SelectedItemNameToRemove = tbxSelectedItemName.Text;
+            existingItemCount = Convert.ToInt16(tbxSelectedItemCount.Text);
+            valueThatNeedToRemove = Convert.ToInt16(tbxItem_count_NeedToremove.Text);
+
+            newValue = existingItemCount - valueThatNeedToRemove;
+
+            string ItemNameToUpdate = string.Empty;
+
+            foreach (KeyValuePair<string,int> pair in Public_Items.Barcode_item_name_and_qty)
+            {
+                if(SelectedItemNameToRemove == pair.Key)
+                {
+                    ItemNameToUpdate = pair.Key;
+                }
+            }
+
+            if(ItemNameToUpdate != null)
+            { 
+                Public_Items.Barcode_item_name_and_qty[ItemNameToUpdate] = newValue;
+            }
+
+            if(existingItemCount == valueThatNeedToRemove) // This code is use to completely remove items from the "Barcode_item_name_and_qty" list
+            {
+                Public_Items.Barcode_item_name_and_qty.Remove(SelectedItemNameToRemove);
+            }
+            // End
+
+            ///Use for tesiting
+            //foreach (KeyValuePair<string, int> pair in Public_Items.Barcode_item_name_and_qty)
+            //{
+            //    MessageBox.Show($"{pair.Key}= {pair.Value}");
+            //}
+
             MessageBox.Show("Deleted", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             // Step 04 Removing item from lbxIncluded_items_to_the_bill (main form)
