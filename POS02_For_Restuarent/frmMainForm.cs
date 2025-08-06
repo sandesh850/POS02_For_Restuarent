@@ -343,8 +343,8 @@ namespace POS02_For_Restuarent
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 /// Step 01
                 if (DialogResult.Yes == MessageBox.Show("Are you sure about this?","Warning",MessageBoxButtons.YesNo,MessageBoxIcon.Warning))
                 {
@@ -355,10 +355,10 @@ namespace POS02_For_Restuarent
 
                     foreach(var data in Public_Items.non_barcodeItem_Names)
                     {
-                        if(data.Contains(selectedItem))
+                        if(data == selectedItem )
                         {
                             checking_of_value_vailability = "Y";
-                           
+                            break;
                         }
                         else
                         {
@@ -479,11 +479,11 @@ namespace POS02_For_Restuarent
 
 
 
-            //}
-            //catch(Exception error)
-            //{
-            //    MessageBox.Show(error.Message,"Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
-            //}
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
 
 
