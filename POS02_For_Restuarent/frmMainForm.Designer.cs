@@ -87,8 +87,6 @@ namespace POS02_For_Restuarent
             this.panel1 = new System.Windows.Forms.Panel();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-            this.lbxTesting = new System.Windows.Forms.ListBox();
-            this.Lbx_Testing02 = new System.Windows.Forms.ListBox();
             this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv)).BeginInit();
             this.panel2.SuspendLayout();
@@ -708,28 +706,8 @@ namespace POS02_For_Restuarent
             this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
-            // 
-            // lbxTesting
-            // 
-            this.lbxTesting.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbxTesting.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbxTesting.FormattingEnabled = true;
-            this.lbxTesting.ItemHeight = 20;
-            this.lbxTesting.Location = new System.Drawing.Point(747, 290);
-            this.lbxTesting.Name = "lbxTesting";
-            this.lbxTesting.Size = new System.Drawing.Size(251, 324);
-            this.lbxTesting.TabIndex = 32;
-            // 
-            // Lbx_Testing02
-            // 
-            this.Lbx_Testing02.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.Lbx_Testing02.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Lbx_Testing02.FormattingEnabled = true;
-            this.Lbx_Testing02.ItemHeight = 20;
-            this.Lbx_Testing02.Location = new System.Drawing.Point(356, 290);
-            this.Lbx_Testing02.Name = "Lbx_Testing02";
-            this.Lbx_Testing02.Size = new System.Drawing.Size(251, 324);
-            this.Lbx_Testing02.TabIndex = 33;
+            this.printPreviewDialog1.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.printPreviewDialog1_FormClosing);
+            this.printPreviewDialog1.Load += new System.EventHandler(this.printPreviewDialog1_Load);
             // 
             // frmMainForm
             // 
@@ -738,8 +716,6 @@ namespace POS02_For_Restuarent
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1838, 1055);
-            this.Controls.Add(this.Lbx_Testing02);
-            this.Controls.Add(this.lbxTesting);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.Dgv);
             this.Controls.Add(this.lblTime);
@@ -821,8 +797,6 @@ namespace POS02_For_Restuarent
         private Panel panel1;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private PrintPreviewDialog printPreviewDialog1;
-        private ListBox lbxTesting;
-        private ListBox Lbx_Testing02;
     }
 }
 

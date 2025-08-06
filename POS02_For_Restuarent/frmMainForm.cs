@@ -101,6 +101,12 @@ namespace POS02_For_Restuarent
 
                 lbxNone_barcode_Items_search.Items.Add(itemNames["ItemName"]);
             }
+
+            // Step 02 || Display bill details in data grid view
+            Program.da = new SqlDataAdapter("SELECT * FROM TblBills",Program.con);
+            Program.da.Fill(Program.ds, "TblBills_dst");
+
+            Dgv.DataSource = Program.ds.Tables["TblBills_dst"];
         }
 
         private void btnEnter_Click(object sender, EventArgs e)
@@ -590,16 +596,27 @@ namespace POS02_For_Restuarent
 
         private void btnSumOfBarcodeItems_Click(object sender, EventArgs e)
         {
+            double existig_value_of_tbxTotal = 0;
             //step 01 || calculating total of barcode items with existing total in tbxTotal
             double sum = Public_Items.barcode_Item_price.Sum();
-            double existig_value_of_tbxTotal = Convert.ToDouble(tbxTotal.Text);
+            if(tbxTotal.Text != string.Empty)
+            {
+                existig_value_of_tbxTotal = Convert.ToDouble(tbxTotal.Text);
+            }
+            
 
             double total_of_both_val = sum + existig_value_of_tbxTotal;
             tbxTotal.Text = total_of_both_val.ToString();
 
 
             // step 02 || calculating qty (value of tbxQty with barcode items)
-            double existing_valueOf_tbxQty = Convert.ToDouble(tbxQty.Text);
+            double existing_valueOf_tbxQty = 0;
+
+            if(tbxQty.Text != string.Empty)
+            {
+                existing_valueOf_tbxQty = Convert.ToDouble(tbxQty.Text);
+            }
+           
            
             double lenth = Public_Items.barcode_Item_price.Count();
           
@@ -857,6 +874,48 @@ namespace POS02_For_Restuarent
 
             graphics.DrawString("Developed by Ravidu Sandesh", new Font("Arial", 4, FontStyle.Regular), Brushes.Black, new Point(120, initial_value_of_position04 + 40));
             graphics.DrawString("Contact: 077 1634350", new Font("Arial", 3, FontStyle.Regular), Brushes.Black, new Point(137, initial_value_of_position04 + 50));
+
+            ///
+            /// clearing all variables and complete main form
+            /// 
+            Public_Items.non_barcodeItem_Names.Clear();
+            Public_Items.non_barcodeItem_Price.Clear();
+            Public_Items.non_barcodeItem_qty.Clear();
+
+            Public_Items.barcode_item_names.Clear();
+            Public_Items.barcode.Clear();
+            Public_Items.barcode_Item_price.Clear();
+            Public_Items.barcode_item_prices_02.Clear();
+            Public_Items.Barcode_item_name_and_qty.Clear();
+
+            lbxIncluded_items_to_the_bill.Items.Clear();
+            tbxTotal.Clear();
+            tbxQty.Clear();
+            tbxBalance.Clear();
+            tbxPaidAmount.Clear();
+            cmbPayment_method.Text = "Please select";
+        }
+
+        private void printPreviewDialog1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void printPreviewDialog1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+          
+            // Display bill details in data grid view
+            if (Program.ds.Tables["TblBills_dst"] != null)
+            {
+                Program.ds.Tables["TblBills_dst"].Clear();
+                Dgv.Refresh();
+            }
+
+
+            Program.da = new SqlDataAdapter("SELECT * FROM TblBills", Program.con);
+            Program.da.Fill(Program.ds, "TblBills_dst");
+
+            Dgv.DataSource = Program.ds.Tables["TblBills_dst"];
         }
     }
 }
