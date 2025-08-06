@@ -579,6 +579,12 @@ namespace POS02_For_Restuarent
 
                
             }
+
+            // Step 02 || clearing text box
+            //if(tbxBarcode.Text != null)
+            //{
+            //    tbxBarcode.Clear();
+            //}
            
         }
 
@@ -689,7 +695,7 @@ namespace POS02_For_Restuarent
 
             graphics.DrawString(time, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(75, 80));
 
-            graphics.DrawString("Bill No", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(250, 80));
+            graphics.DrawString("Bill No:"+lblBill_No.Text, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(220, 80));
 
             graphics.DrawString("-------------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, 95));
 

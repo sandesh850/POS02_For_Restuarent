@@ -118,19 +118,20 @@ namespace POS02_For_Restuarent
 
             newValue = existingItemCount - valueThatNeedToRemove;
 
-            string ItemNameToUpdate = string.Empty;
+            /// incorrect code
+            //string ItemNameToUpdate = string.Empty;
 
-            foreach (KeyValuePair<string,int> pair in Public_Items.Barcode_item_name_and_qty)
-            {
-                if(SelectedItemNameToRemove == pair.Key)
-                {
-                    ItemNameToUpdate = pair.Key;
-                }
-            }
+            //foreach (KeyValuePair<string,int> pair in Public_Items.Barcode_item_name_and_qty)
+            //{
+            //    if(SelectedItemNameToRemove == pair.Key)
+            //    {
+            //        ItemNameToUpdate = pair.Key;
+            //    }
+            //}
 
-            if(ItemNameToUpdate != null)
+            if(SelectedItemNameToRemove != null)
             { 
-                Public_Items.Barcode_item_name_and_qty[ItemNameToUpdate] = newValue;
+                Public_Items.Barcode_item_name_and_qty[SelectedItemNameToRemove] = newValue;
             }
 
             if(existingItemCount == valueThatNeedToRemove) // This code is use to completely remove items from the "Barcode_item_name_and_qty" list
