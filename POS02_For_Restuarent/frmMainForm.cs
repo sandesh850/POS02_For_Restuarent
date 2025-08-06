@@ -691,7 +691,7 @@ namespace POS02_For_Restuarent
 
             graphics.DrawString("Bill No", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(250, 80));
 
-            graphics.DrawString("-----------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, 95));
+            graphics.DrawString("-------------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, 95));
 
             // Body area (body area header)
             graphics.DrawString("Item", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(5, 120));
@@ -702,7 +702,7 @@ namespace POS02_For_Restuarent
 
             graphics.DrawString("Amount", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(250, 120));
 
-            graphics.DrawString("-----------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, 130));
+            graphics.DrawString("-------------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, 130));
 
             // Non barcode item names adding to the bill
             int initial_value_of_position = 145;
@@ -843,6 +843,14 @@ namespace POS02_For_Restuarent
             }
 
 
+            ///
+            /// Footer
+            /// 
+
+            graphics.DrawString("-------------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black,new Point(0, initial_value_of_position04 + 20));
+
+            graphics.DrawString("Developed by Ravidu Sandesh", new Font("Arial", 4, FontStyle.Regular), Brushes.Black, new Point(120, initial_value_of_position04 + 40));
+            graphics.DrawString("Contact: 077 1634350", new Font("Arial", 3, FontStyle.Regular), Brushes.Black, new Point(137, initial_value_of_position04 + 50));
         }
     }
 }
