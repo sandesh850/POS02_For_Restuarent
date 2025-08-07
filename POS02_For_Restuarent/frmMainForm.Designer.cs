@@ -520,6 +520,7 @@ namespace POS02_For_Restuarent
             // tbxBalance
             // 
             this.tbxBalance.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbxBalance.Enabled = false;
             this.tbxBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxBalance.Location = new System.Drawing.Point(236, 847);
             this.tbxBalance.Multiline = true;
@@ -695,6 +696,7 @@ namespace POS02_For_Restuarent
             // 
             // printDocument1
             // 
+            this.printDocument1.EndPrint += new System.Drawing.Printing.PrintEventHandler(this.printDocument1_EndPrint);
             this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
             // 
             // printPreviewDialog1

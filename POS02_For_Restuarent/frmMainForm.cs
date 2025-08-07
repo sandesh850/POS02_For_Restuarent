@@ -909,8 +909,8 @@ namespace POS02_For_Restuarent
 
         private void printPreviewDialog1_FormClosing(object sender, FormClosingEventArgs e)
         {
-          
-            // Display bill details in data grid view
+
+            // step 01 || Display bill details in data grid view
             if (Program.ds.Tables["TblBills_dst"] != null)
             {
                 Program.ds.Tables["TblBills_dst"].Clear();
@@ -923,7 +923,39 @@ namespace POS02_For_Restuarent
 
             Dgv.DataSource = Program.ds.Tables["TblBills_dst"];
 
-           
+
+            // step 02 || Bill no calculating
+
+            if (Program.ds.Tables["TBLlast_bill_No_dst"] != null)
+            {
+                Program.ds.Tables["TBLlast_bill_No_dst"].Clear();
+            }
+
+            Program.da = new SqlDataAdapter("SELECT TOP 1 Bill_no FROM TblBills ORDER BY Bill_no DESC", Program.con);
+            Program.da.Fill(Program.ds, "TBLlast_bill_No_dst");
+
+            int Last_bill_No = 0;
+            int Row_count = Program.ds.Tables["TBLlast_bill_No_dst"].Rows.Count;
+
+            if (Row_count <= 0)
+            {
+                Last_bill_No++;
+            }
+            else
+            {
+                Last_bill_No = Convert.ToInt16(Program.ds.Tables["TBLlast_bill_No_dst"].Rows[0]["Bill_no"]);
+                Last_bill_No = Last_bill_No + 1;
+
+            }
+
+            lblBill_No.Text = Last_bill_No.ToString();
+
+
+        }
+
+        private void printDocument1_EndPrint(object sender, PrintEventArgs e)
+        {
+            //printPreviewDialog1.Close();
         }
     }
 }
