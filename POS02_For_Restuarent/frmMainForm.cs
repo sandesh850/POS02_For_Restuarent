@@ -881,6 +881,8 @@ namespace POS02_For_Restuarent
             Public_Items.non_barcodeItem_Names.Clear();
             Public_Items.non_barcodeItem_Price.Clear();
             Public_Items.non_barcodeItem_qty.Clear();
+            Public_Items.Amount.Clear();
+            Public_Items.ItemNames = "";
 
             Public_Items.barcode_item_names.Clear();
             Public_Items.barcode.Clear();
@@ -888,12 +890,16 @@ namespace POS02_For_Restuarent
             Public_Items.barcode_item_prices_02.Clear();
             Public_Items.Barcode_item_name_and_qty.Clear();
 
+            Public_Items.Globale_index_of_selected_itemBarcode = 0;
+            Public_Items.barcodeItemThatSelectedToRemove = "";
+
             lbxIncluded_items_to_the_bill.Items.Clear();
-            tbxTotal.Clear();
-            tbxQty.Clear();
+            tbxTotal.Text = "0";
+            tbxQty.Text = "0";
             tbxBalance.Clear();
             tbxPaidAmount.Clear();
             cmbPayment_method.Text = "Please select";
+
         }
 
         private void printPreviewDialog1_Load(object sender, EventArgs e)
@@ -916,6 +922,8 @@ namespace POS02_For_Restuarent
             Program.da.Fill(Program.ds, "TblBills_dst");
 
             Dgv.DataSource = Program.ds.Tables["TblBills_dst"];
+
+           
         }
     }
 }

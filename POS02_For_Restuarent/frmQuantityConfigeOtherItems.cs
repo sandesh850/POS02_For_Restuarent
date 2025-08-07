@@ -42,9 +42,9 @@ namespace POS02_For_Restuarent
         private void btnOK_Click(object sender, EventArgs e)
         {
 
-           
-           try
-           {
+
+            try
+            {
                 //step 01
 
                 // my code || use to insert values into non-barcodeItem_Names list
@@ -134,12 +134,12 @@ namespace POS02_For_Restuarent
 
                 this.Close();
 
-           }
-           catch(Exception ex)
-           {
-                MessageBox.Show(ex.Message,"Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
-           }
-           
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
 
         }
 
