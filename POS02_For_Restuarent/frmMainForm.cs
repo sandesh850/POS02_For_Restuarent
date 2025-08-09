@@ -275,101 +275,114 @@ namespace POS02_For_Restuarent
             //MessageBox.Show("width:"+width);
             //MessageBox.Show("width:" + height);
 
-
-            ///
-            /// Step 03 inserting bill details into the database
-            /// 
-
-            // Inserting data into TblBills
-            Program.cmd.Connection = Program.con;
-            Program.con.Open();
-            Program.cmd.CommandText = "INSERT INTO TblBills VALUES('" + lblBill_No.Text + "', '" + tbxTotal.Text + "', '" + lblDate.Text + "', '" + lblTime.Text + "') ";
-            Program.cmd.ExecuteNonQuery();
-            Program.con.Close();
-
-            //Inserting barcode item details into the database (barcode item that included into the bill)
-            foreach (double barcodes in Public_Items.barcode)
+            try
             {
-                Program.cmd.Connection = Program.con;
-                Program.con.Open();
-                Program.cmd.CommandText = "INSERT INTO TblBills VALUES('" + lblBill_No.Text + "', '" + barcodes + "') ";
-                Program.cmd.ExecuteNonQuery();
-                Program.con.Close();
-            }
+                if (cmbPayment_method.Text == "Please select")
+                {
+                    MessageBox.Show("Please select the payment method", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    cmbPayment_method.Focus();
+                }
+                else if (tbxPaidAmount.Text == string.Empty)
+                {
+                    MessageBox.Show("Please enter the paid amount", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    tbxPaidAmount.Focus();
+                }
+                else
+                {
+                    ///
+                    /// Step 03 inserting bill details into the database
+                    /// 
 
+                    // Inserting data into TblBills
+                    Program.cmd.Connection = Program.con;
+                    Program.con.Open();
+                    Program.cmd.CommandText = "INSERT INTO TblBills VALUES('" + lblBill_No.Text + "', '" + tbxTotal.Text + "', '" + lblDate.Text + "', '" + lblTime.Text + "') ";
+                    Program.cmd.ExecuteNonQuery();
+                    Program.con.Close();
 
-
-            ///
-            /// Step 04 // Algorithm type =  Counting / Frequency algorithm (This code is use to find barcode item qty and insert those new data into 
-            /// "Barcode_item_name_and_qty" list that use to print final Bill)
-            /// 
-            string ItemNameThatUsedToFindQTY = "";
-            int qty_of_one_item = 0;
-
-
-            //if(lbxTesting_BCR_names.Items.Count > 0)
-            //{
-            //    lbxTesting_BCR_names.Items.Clear();
-            //}
-
-            //part 01 of the loop
-            foreach(string data in Public_Items.barcode_item_names.ToList())
-            {
-                //lbxTesting.Items.Add(data);
-                ItemNameThatUsedToFindQTY = data;
-               if(ItemNameThatUsedToFindQTY == data)
-               {
-                    //part 02 of the loop
-                    foreach (string names in  Public_Items.barcode_item_names)
+                    //Inserting barcode item details into the database (barcode item that included into the bill)
+                    foreach (double barcodes in Public_Items.barcode)
                     {
-                        if(ItemNameThatUsedToFindQTY == names)
+                        Program.cmd.Connection = Program.con;
+                        Program.con.Open();
+                        Program.cmd.CommandText = "INSERT INTO TblBill_IteamDetails_Barcode VALUES('" + lblBill_No.Text + "', '" + barcodes + "') ";
+                        Program.cmd.ExecuteNonQuery();
+                        Program.con.Close();
+                    }
+
+                    // Inserting Non barcode item details into the database
+                    foreach (string nonBarcodeItemNames in Public_Items.non_barcodeItem_Names)
+                    {
+                        Program.cmd.Connection = Program.con;
+                        Program.con.Open();
+                        Program.cmd.CommandText = "INSERT INTO TblBill_ItemDetails_OItems VALUES('" + lblBill_No.Text + "', '" + nonBarcodeItemNames + "') ";
+                        Program.cmd.ExecuteNonQuery();
+                        Program.con.Close();
+                    }
+
+                    ///
+                    /// Step 04 // Algorithm type =  Counting / Frequency algorithm (This code is use to find barcode item qty and insert those new data into 
+                    /// "Barcode_item_name_and_qty" list that use to print final Bill)
+                    /// 
+                    string ItemNameThatUsedToFindQTY = "";
+                    int qty_of_one_item = 0;
+
+                    //part 01 of the loop
+                    foreach (string data in Public_Items.barcode_item_names.ToList())
+                    {
+                        //lbxTesting.Items.Add(data);
+                        ItemNameThatUsedToFindQTY = data;
+                        if (ItemNameThatUsedToFindQTY == data)
                         {
-                            qty_of_one_item++;
+                            //part 02 of the loop
+                            foreach (string names in Public_Items.barcode_item_names)
+                            {
+                                if (ItemNameThatUsedToFindQTY == names)
+                                {
+                                    qty_of_one_item++;
+                                }
+
+                            }
+
+                            if (!Public_Items.Barcode_item_name_and_qty.ContainsKey(ItemNameThatUsedToFindQTY))
+                            {
+                                Public_Items.Barcode_item_name_and_qty.Add(ItemNameThatUsedToFindQTY, qty_of_one_item);
+                            }
+
+
+                            Public_Items.barcode_item_names.Remove(ItemNameThatUsedToFindQTY);
+                            ItemNameThatUsedToFindQTY = "";
+                            qty_of_one_item = 0;
+
                         }
-                    
+
                     }
 
-                    if(!Public_Items.Barcode_item_name_and_qty.ContainsKey(ItemNameThatUsedToFindQTY))
-                    {
-                        Public_Items.Barcode_item_name_and_qty.Add(ItemNameThatUsedToFindQTY, qty_of_one_item);
-                    }
 
-                   
-                    Public_Items.barcode_item_names.Remove(ItemNameThatUsedToFindQTY);
-                    ItemNameThatUsedToFindQTY = "";
-                    qty_of_one_item = 0;
+                    ///
+                    /// Step 05 Correct and working code
+                    /// 
+                    int itemCount = 0;
+                    itemCount = Convert.ToInt16(Public_Items.non_barcodeItem_Names.Count + Public_Items.Barcode_item_name_and_qty.Count);
+                    int dynmicHeight = 0;
 
-               }
+                    dynmicHeight = 200 + (itemCount * 20); /*20 is a space value that single item get from the Bill*/
 
+                    printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custom",/*Width (80mm)*/315, /*Height*/ dynmicHeight);
+
+                    printPreviewDialog1.Document = printDocument1;
+                    printPreviewDialog1.ShowDialog();
+
+                }
             }
-
-            ///
-            ///The following list box is use to testing
-            ///
-            //lbxTesting_BCR_names.Items.Clear();
-            //foreach(KeyValuePair<string,int> pair in Public_Items.Barcode_item_name_and_qty)
-            //{
-            //    lbxTesting_BCR_names.Items.Add($"{pair.Key} ={pair.Value}");
-            //}
-
-
-            ///
-            /// Step 05 Correct and working code
-            /// 
-            int itemCount = 0;
-            itemCount = Convert.ToInt16( Public_Items.non_barcodeItem_Names.Count + Public_Items.Barcode_item_name_and_qty.Count);
-            int dynmicHeight = 0;
-
-            dynmicHeight = 200 + (itemCount * 20); /*20 is a space value that single item get from the Bill*/
-
-            printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custom",/*Width (80mm)*/315, /*Height*/ dynmicHeight);
-
-            printPreviewDialog1.Document = printDocument1;
-            printPreviewDialog1.ShowDialog();
-
-
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
            
+
+          
 
         }
 
