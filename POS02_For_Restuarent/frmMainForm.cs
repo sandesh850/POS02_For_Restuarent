@@ -275,8 +275,32 @@ namespace POS02_For_Restuarent
             //MessageBox.Show("width:"+width);
             //MessageBox.Show("width:" + height);
 
+
             ///
-            /// Step 03 // Algorithm type =  Counting / Frequency algorithm (This code is use to find barcode item qty and insert those new data into 
+            /// Step 03 inserting bill details into the database
+            /// 
+
+            // Inserting data into TblBills
+            Program.cmd.Connection = Program.con;
+            Program.con.Open();
+            Program.cmd.CommandText = "INSERT INTO TblBills VALUES('" + lblBill_No.Text + "', '" + tbxTotal.Text + "', '" + lblDate.Text + "', '" + lblTime.Text + "') ";
+            Program.cmd.ExecuteNonQuery();
+            Program.con.Close();
+
+            //Inserting barcode item details into the database (barcode item that included into the bill)
+            foreach (double barcodes in Public_Items.barcode)
+            {
+                Program.cmd.Connection = Program.con;
+                Program.con.Open();
+                Program.cmd.CommandText = "INSERT INTO TblBills VALUES('" + lblBill_No.Text + "', '" + barcodes + "') ";
+                Program.cmd.ExecuteNonQuery();
+                Program.con.Close();
+            }
+
+
+
+            ///
+            /// Step 04 // Algorithm type =  Counting / Frequency algorithm (This code is use to find barcode item qty and insert those new data into 
             /// "Barcode_item_name_and_qty" list that use to print final Bill)
             /// 
             string ItemNameThatUsedToFindQTY = "";
@@ -288,14 +312,14 @@ namespace POS02_For_Restuarent
             //    lbxTesting_BCR_names.Items.Clear();
             //}
 
-            //Step 01 of the loop
+            //part 01 of the loop
             foreach(string data in Public_Items.barcode_item_names.ToList())
             {
                 //lbxTesting.Items.Add(data);
                 ItemNameThatUsedToFindQTY = data;
                if(ItemNameThatUsedToFindQTY == data)
                {
-                    //Step 02 of the loop
+                    //part 02 of the loop
                     foreach (string names in  Public_Items.barcode_item_names)
                     {
                         if(ItemNameThatUsedToFindQTY == names)
@@ -330,7 +354,7 @@ namespace POS02_For_Restuarent
 
 
             ///
-            /// Step 04 Correct and working code
+            /// Step 05 Correct and working code
             /// 
             int itemCount = 0;
             itemCount = Convert.ToInt16( Public_Items.non_barcodeItem_Names.Count + Public_Items.Barcode_item_name_and_qty.Count);
@@ -344,6 +368,8 @@ namespace POS02_For_Restuarent
             printPreviewDialog1.ShowDialog();
 
 
+
+           
 
         }
 
