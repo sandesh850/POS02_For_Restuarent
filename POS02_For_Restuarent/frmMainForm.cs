@@ -52,6 +52,81 @@ namespace POS02_For_Restuarent
 
         private void frmMainForm_Load(object sender, EventArgs e)
         {
+            ///
+            /// Special code 
+            /// 
+
+            if (Program.ds.Tables["Tbltracking_dst"] != null)
+            {
+                Program.ds.Tables["Tbltracking_dst"].Clear();
+            }
+
+            DateTime dateAndTime = DateTime.Now;
+            string Today = dateAndTime.ToShortDateString();
+            int dateCounting = 0;
+            string dateAvailability_Checking = "";
+
+            Program.da = new SqlDataAdapter("SELECT * FROM Tbltracking",Program.con);
+            Program.da.Fill(Program.ds, "Tbltracking_dst");
+
+            if (Program.ds.Tables["Tbltracking_dst"].Rows.Count <= 0)// This code use to calculate and insert date and date count in first running
+            {
+                dateCounting++;
+
+                Program.cmd.Connection = Program.con;
+                Program.con.Open();
+                Program.cmd.CommandText = "INSERT INTO Tbltracking VALUES('"+Today+"', '"+dateCounting+"') ";
+                Program.cmd.ExecuteNonQuery();
+                Program.con.Close();
+
+
+            }
+            else
+            {
+                // This code is used to insert and calculate date and date count after initial-
+                // reord inserting. Also main goal is this finding the current date is existing in database
+                foreach (DataRow data in Program.ds.Tables["Tbltracking_dst"].Rows)
+                {
+                    DateTime checkingDates = Convert.ToDateTime( data["Date"]);
+
+                    if (checkingDates.ToShortDateString() != Today)
+                    {
+                       
+                        dateAvailability_Checking = "no";
+                    }
+                    else
+                    {
+                        dateAvailability_Checking = "yes";
+                    }
+                }
+            }
+
+            // This code is used to insert and calculate date and date count after initial reord inserting
+            if (dateAvailability_Checking == "no")
+            {
+                if (Program.ds.Tables["TblLastCount_dst"] != null)
+                {
+                    Program.ds.Tables["TblLastCount_dst"].Clear();
+                }
+
+                Program.da = new SqlDataAdapter("SELECT TOP 1 count FROM Tbltracking ORDER BY count DESC", Program.con);
+                Program.da.Fill(Program.ds,"TblLastCount_dst");
+
+                int lastCount = 0;
+                lastCount = Convert.ToInt16(Program.ds.Tables["TblLastCount_dst"].Rows[0]["count"]);
+
+                lastCount++;
+
+                Program.cmd.Connection = Program.con;
+                Program.con.Open();
+                Program.cmd.CommandText = "INSERT INTO Tbltracking VALUES('" + Today + "', '" + lastCount + "') ";
+                Program.cmd.ExecuteNonQuery();
+                Program.con.Close();
+            }
+
+
+
+
 
             // step 01 || Bill no calculating
 
@@ -114,10 +189,18 @@ namespace POS02_For_Restuarent
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
-            Public_Items.ItemNames = tbxSearch.Text;// used to retrieve and display item name in tbx in frmQuantityConfiguration form
+            if(tbxSearch.Text == string.Empty || tbxSearch.Text == "Search")
+            {
+                MessageBox.Show("Please select a item","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+            else
+            {
+                Public_Items.ItemNames = tbxSearch.Text;// used to retrieve and display item name in tbx in frmQuantityConfiguration form
 
-            frmQuantityConfigeOtherItems quenConfig = new frmQuantityConfigeOtherItems(this);
-            quenConfig.ShowDialog();
+                frmQuantityConfigeOtherItems quenConfig = new frmQuantityConfigeOtherItems(this);
+                quenConfig.ShowDialog();
+            }
+           
         }
 
         private void btnLoginConfig_Click(object sender, EventArgs e)
@@ -636,7 +719,7 @@ namespace POS02_For_Restuarent
             else
             {
                 ClearTextTimer = new Timer();
-                ClearTextTimer.Interval = 1000;
+                ClearTextTimer.Interval = 1000;// 1 second
                 ClearTextTimer.Tick += (s, args) =>
                 {
                     tbxBarcode.Text = "";
@@ -646,62 +729,88 @@ namespace POS02_For_Restuarent
             }
 
             ClearTextTimer.Start();
-          
 
-            
+
+            ///
+            ///  Methods that we can use to play a sound
+            ///  
+
+            // Method 01 | In here only play .wav files 
+            //System.Media.SoundPlayer player = new System.Media.SoundPlayer("beep.wav"); Put the sound location inside the paranthesis.
+            //player.Play();
+
+            // Method 02
+            //System.Media.SystemSounds.Beep.Play("Sound location");
+
+
+
         }
 
         private void btnSumOfBarcodeItems_Click(object sender, EventArgs e)
         {
-            double existig_value_of_tbxTotal = 0;
-            //step 01 || calculating total of barcode items with existing total in tbxTotal
-            double sum = Public_Items.barcode_Item_price.Sum();
-            if(tbxTotal.Text != string.Empty)
+            try
             {
-                existig_value_of_tbxTotal = Convert.ToDouble(tbxTotal.Text);
-            }
-            
-
-            double total_of_both_val = sum + existig_value_of_tbxTotal;
-            tbxTotal.Text = total_of_both_val.ToString();
-
-
-            // step 02 || calculating qty (value of tbxQty with barcode items)
-            double existing_valueOf_tbxQty = 0;
-
-            if(tbxQty.Text != string.Empty)
-            {
-                existing_valueOf_tbxQty = Convert.ToDouble(tbxQty.Text);
-            }
-           
-           
-            double lenth = Public_Items.barcode_Item_price.Count();
-          
-            double new_qty_count = existing_valueOf_tbxQty + lenth;
-            tbxQty.Text = new_qty_count.ToString();
-
-
-            /// inserting prices to permanet list
-            foreach (double prices in Public_Items.barcode_Item_price)
-            {
-                Public_Items.barcode_item_prices_02.Add(prices);
-            }
-
-            Public_Items.barcode_Item_price.Clear();
-
-            
-            /// step 04 || inserting item names to the lbxIncluded_items_to_the_bill
-            foreach (string barcode_ItemNames in Public_Items.barcode_item_names)
-            {
-                if(!lbxIncluded_items_to_the_bill.Items.Contains(barcode_ItemNames))
+                if (tbxBarcode.Text == string.Empty)
                 {
-                    lbxIncluded_items_to_the_bill.Items.Add(barcode_ItemNames);
+                    MessageBox.Show("Please enter the barcode", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                else
+                {
+                    double existig_value_of_tbxTotal = 0;
+                    //step 01 || calculating total of barcode items with existing total in tbxTotal
+                    double sum = Public_Items.barcode_Item_price.Sum();
+                    if (tbxTotal.Text != string.Empty)
+                    {
+                        existig_value_of_tbxTotal = Convert.ToDouble(tbxTotal.Text);
+                    }
+
+
+                    double total_of_both_val = sum + existig_value_of_tbxTotal;
+                    tbxTotal.Text = total_of_both_val.ToString();
+
+
+                    // step 02 || calculating qty (value of tbxQty with barcode items)
+                    double existing_valueOf_tbxQty = 0;
+
+                    if (tbxQty.Text != string.Empty)
+                    {
+                        existing_valueOf_tbxQty = Convert.ToDouble(tbxQty.Text);
+                    }
+
+
+                    double lenth = Public_Items.barcode_Item_price.Count();
+
+                    double new_qty_count = existing_valueOf_tbxQty + lenth;
+                    tbxQty.Text = new_qty_count.ToString();
+
+
+                    /// inserting prices to permanet list
+                    foreach (double prices in Public_Items.barcode_Item_price)
+                    {
+                        Public_Items.barcode_item_prices_02.Add(prices);
+                    }
+
+                    Public_Items.barcode_Item_price.Clear();
+
+
+                    /// step 04 || inserting item names to the lbxIncluded_items_to_the_bill
+                    foreach (string barcode_ItemNames in Public_Items.barcode_item_names)
+                    {
+                        if (!lbxIncluded_items_to_the_bill.Items.Contains(barcode_ItemNames))
+                        {
+                            lbxIncluded_items_to_the_bill.Items.Add(barcode_ItemNames);
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
 
-            
-          
+
         }
 
         private void btnOK_Click(object sender, EventArgs e)
