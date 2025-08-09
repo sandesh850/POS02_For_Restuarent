@@ -10,13 +10,16 @@ using POS02_For_Restuarent.ExternalClasses;
 
 namespace POS02_For_Restuarent
 {
+   
     public partial class frmMainForm : Form
     {
         // Public_Items public_Items = new Public_Items();
-       // public readonly frmMainForm _frmMainForm02;
+        // public readonly frmMainForm _frmMainForm02;
+        Timer ClearTextTimer;
         public frmMainForm()
         {
             InitializeComponent();
+           
             
         }
 
@@ -625,12 +628,27 @@ namespace POS02_For_Restuarent
                
             }
 
-            // Step 02 || clearing text box
-            //if(tbxBarcode.Text != null)
-            //{
-            //    tbxBarcode.Clear();
-            //}
-           
+            //Step 02 || clearing text box
+            if(ClearTextTimer !=  null)
+            {
+                ClearTextTimer.Stop(); //clearTextTimer is a variable name (check the top of this form)
+            }
+            else
+            {
+                ClearTextTimer = new Timer();
+                ClearTextTimer.Interval = 1000;
+                ClearTextTimer.Tick += (s, args) =>
+                {
+                    tbxBarcode.Text = "";
+                    ClearTextTimer.Stop();
+                };
+
+            }
+
+            ClearTextTimer.Start();
+          
+
+            
         }
 
         private void btnSumOfBarcodeItems_Click(object sender, EventArgs e)
