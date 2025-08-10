@@ -1086,6 +1086,10 @@ namespace POS02_For_Restuarent
                 initial_value_of_position04 = initial_value_of_position04 + 20;
             }
 
+            graphics.DrawString("-------------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, initial_value_of_position04-6));
+            // Total 
+            graphics.DrawString("Total:", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(230, initial_value_of_position04+10));
+            graphics.DrawString(tbxTotal.Text, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(260, initial_value_of_position04+10));
 
             ///
             /// Footer
