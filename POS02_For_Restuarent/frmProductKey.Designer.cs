@@ -41,11 +41,11 @@
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(136, 40);
+            this.label3.Location = new System.Drawing.Point(107, 40);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(390, 52);
+            this.label3.Size = new System.Drawing.Size(468, 52);
             this.label3.TabIndex = 10;
-            this.label3.Text = "Enter the Quantity";
+            this.label3.Text = "Enter the Product Key";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 

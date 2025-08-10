@@ -65,8 +65,15 @@ namespace POS02_For_Restuarent
             Program.da = new SqlDataAdapter("SELECT TOP 1 count FROM Tbltracking ORDER BY count DESC",Program.con);
             Program.da.Fill(Program.ds, "TblLastCount_dst");
 
+            int rowCount = 0;
+            rowCount = Program.ds.Tables["TblLastCount_dst"].Rows.Count;
+
             int LCount = 0;
-            LCount = Convert.ToInt32(Program.ds.Tables["TblLastCount_dst"].Rows[0]["count"]);
+            if(rowCount > 0)
+            {
+                LCount = Convert.ToInt32(Program.ds.Tables["TblLastCount_dst"].Rows[0]["count"]);
+            }
+           
 
             if(LCount >= 30)
             {
@@ -774,56 +781,49 @@ namespace POS02_For_Restuarent
         {
             try
             {
-                if (tbxBarcode.Text == string.Empty)
+                double existig_value_of_tbxTotal = 0;
+                //step 01 || calculating total of barcode items with existing total in tbxTotal
+                double sum = Public_Items.barcode_Item_price.Sum();
+                if (tbxTotal.Text != string.Empty)
                 {
-                    MessageBox.Show("Please enter the barcode", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    existig_value_of_tbxTotal = Convert.ToDouble(tbxTotal.Text);
                 }
-                else
+
+
+                double total_of_both_val = sum + existig_value_of_tbxTotal;
+                tbxTotal.Text = total_of_both_val.ToString();
+
+
+                // step 02 || calculating qty (value of tbxQty with barcode items)
+                double existing_valueOf_tbxQty = 0;
+
+                if (tbxQty.Text != string.Empty)
                 {
-                    double existig_value_of_tbxTotal = 0;
-                    //step 01 || calculating total of barcode items with existing total in tbxTotal
-                    double sum = Public_Items.barcode_Item_price.Sum();
-                    if (tbxTotal.Text != string.Empty)
+                    existing_valueOf_tbxQty = Convert.ToDouble(tbxQty.Text);
+                }
+
+
+                double lenth = Public_Items.barcode_Item_price.Count();
+
+                double new_qty_count = existing_valueOf_tbxQty + lenth;
+                tbxQty.Text = new_qty_count.ToString();
+
+
+                /// inserting prices to permanet list
+                foreach (double prices in Public_Items.barcode_Item_price)
+                {
+                    Public_Items.barcode_item_prices_02.Add(prices);
+                }
+
+                Public_Items.barcode_Item_price.Clear();
+
+
+                /// step 04 || inserting item names to the lbxIncluded_items_to_the_bill
+                foreach (string barcode_ItemNames in Public_Items.barcode_item_names)
+                {
+                    if (!lbxIncluded_items_to_the_bill.Items.Contains(barcode_ItemNames))
                     {
-                        existig_value_of_tbxTotal = Convert.ToDouble(tbxTotal.Text);
-                    }
-
-
-                    double total_of_both_val = sum + existig_value_of_tbxTotal;
-                    tbxTotal.Text = total_of_both_val.ToString();
-
-
-                    // step 02 || calculating qty (value of tbxQty with barcode items)
-                    double existing_valueOf_tbxQty = 0;
-
-                    if (tbxQty.Text != string.Empty)
-                    {
-                        existing_valueOf_tbxQty = Convert.ToDouble(tbxQty.Text);
-                    }
-
-
-                    double lenth = Public_Items.barcode_Item_price.Count();
-
-                    double new_qty_count = existing_valueOf_tbxQty + lenth;
-                    tbxQty.Text = new_qty_count.ToString();
-
-
-                    /// inserting prices to permanet list
-                    foreach (double prices in Public_Items.barcode_Item_price)
-                    {
-                        Public_Items.barcode_item_prices_02.Add(prices);
-                    }
-
-                    Public_Items.barcode_Item_price.Clear();
-
-
-                    /// step 04 || inserting item names to the lbxIncluded_items_to_the_bill
-                    foreach (string barcode_ItemNames in Public_Items.barcode_item_names)
-                    {
-                        if (!lbxIncluded_items_to_the_bill.Items.Contains(barcode_ItemNames))
-                        {
-                            lbxIncluded_items_to_the_bill.Items.Add(barcode_ItemNames);
-                        }
+                        lbxIncluded_items_to_the_bill.Items.Add(barcode_ItemNames);
                     }
                 }
 
