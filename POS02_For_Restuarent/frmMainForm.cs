@@ -56,6 +56,30 @@ namespace POS02_For_Restuarent
             /// Special code 
             /// 
 
+            // This code use to find check whether the date limite of the software is exceeded 
+            if (Program.ds.Tables["TblLastCount_dst"] != null)
+            {
+                Program.ds.Tables["TblLastCount_dst"].Clear();
+            }
+
+            Program.da = new SqlDataAdapter("SELECT TOP 1 count FROM Tbltracking ORDER BY count DESC",Program.con);
+            Program.da.Fill(Program.ds, "TblLastCount_dst");
+
+            int LCount = 0;
+            LCount = Convert.ToInt32(Program.ds.Tables["TblLastCount_dst"].Rows[0]["count"]);
+
+            if(LCount >= 30)
+            {
+                
+                MessageBox.Show("Limit Exceeded","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+              
+                frmProductKey productKey = new frmProductKey();
+                productKey.ShowDialog();
+            }
+
+
+
+
             if (Program.ds.Tables["Tbltracking_dst"] != null)
             {
                 Program.ds.Tables["Tbltracking_dst"].Clear();
@@ -101,7 +125,7 @@ namespace POS02_For_Restuarent
                 }
             }
 
-            // This code is used to insert and calculate date and date count after initial reord inserting
+            // This code is used to insert and calculate date and date count after initial record inserting
             if (dateAvailability_Checking == "no")
             {
                 if (Program.ds.Tables["TblLastCount_dst"] != null)

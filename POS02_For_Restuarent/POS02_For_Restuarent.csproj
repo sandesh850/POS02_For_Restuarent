@@ -98,6 +98,12 @@
     <Compile Include="frmChoose_barcode_or_other_items_toUpdate.Designer.cs">
       <DependentUpon>frmChoose_barcode_or_other_items_toUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmProductKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProductKey.Designer.cs">
+      <DependentUpon>frmProductKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmQuantityConfigeOtherItems.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +195,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmChoose_barcode_or_other_items_toUpdate.resx">
       <DependentUpon>frmChoose_barcode_or_other_items_toUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProductKey.resx">
+      <DependentUpon>frmProductKey.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmQuantityConfigeOtherItems.resx">
       <DependentUpon>frmQuantityConfigeOtherItems.cs</DependentUpon>
