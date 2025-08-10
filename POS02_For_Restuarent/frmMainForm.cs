@@ -425,103 +425,113 @@ namespace POS02_For_Restuarent
 
             try
             {
-                if (cmbPayment_method.Text == "Please select")
+                if(Public_Items.barcode_Item_price.Count() > 0)
                 {
-                    MessageBox.Show("Please select the payment method", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    cmbPayment_method.Focus();
-                }
-                else if (tbxPaidAmount.Text == string.Empty)
-                {
-                    MessageBox.Show("Please enter the paid amount", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    tbxPaidAmount.Focus();
+                    MessageBox.Show("!! You do not include the barcode items. Please include those", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    btnSumOfBarcodeItems.Focus();
                 }
                 else
                 {
-                    ///
-                    /// Step 03 inserting bill details into the database
-                    /// 
-
-                    // Inserting data into TblBills
-                    Program.cmd.Connection = Program.con;
-                    Program.con.Open();
-                    Program.cmd.CommandText = "INSERT INTO TblBills VALUES('" + lblBill_No.Text + "', '" + tbxTotal.Text + "', '" + lblDate.Text + "', '" + lblTime.Text + "') ";
-                    Program.cmd.ExecuteNonQuery();
-                    Program.con.Close();
-
-                    //Inserting barcode item details into the database (barcode item that included into the bill)
-                    foreach (double barcodes in Public_Items.barcode)
+                    if (cmbPayment_method.Text == "Please select")
                     {
+                        MessageBox.Show("Please select the payment method", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        cmbPayment_method.Focus();
+                    }
+                    else if (tbxPaidAmount.Text == string.Empty)
+                    {
+                        MessageBox.Show("Please enter the paid amount", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        tbxPaidAmount.Focus();
+                    }
+                    else
+                    {
+                        ///
+                        /// Step 03 inserting bill details into the database
+                        /// 
+
+                        // Inserting data into TblBills
                         Program.cmd.Connection = Program.con;
                         Program.con.Open();
-                        Program.cmd.CommandText = "INSERT INTO TblBill_IteamDetails_Barcode VALUES('" + lblBill_No.Text + "', '" + barcodes + "') ";
+                        Program.cmd.CommandText = "INSERT INTO TblBills VALUES('" + lblBill_No.Text + "', '" + tbxTotal.Text + "', '" + lblDate.Text + "', '" + lblTime.Text + "') ";
                         Program.cmd.ExecuteNonQuery();
                         Program.con.Close();
-                    }
 
-                    // Inserting Non barcode item details into the database
-                    foreach (string nonBarcodeItemNames in Public_Items.non_barcodeItem_Names)
-                    {
-                        Program.cmd.Connection = Program.con;
-                        Program.con.Open();
-                        Program.cmd.CommandText = "INSERT INTO TblBill_ItemDetails_OItems VALUES('" + lblBill_No.Text + "', '" + nonBarcodeItemNames + "') ";
-                        Program.cmd.ExecuteNonQuery();
-                        Program.con.Close();
-                    }
-
-                    ///
-                    /// Step 04 // Algorithm type =  Counting / Frequency algorithm (This code is use to find barcode item qty and insert those new data into 
-                    /// "Barcode_item_name_and_qty" list that use to print final Bill)
-                    /// 
-                    string ItemNameThatUsedToFindQTY = "";
-                    int qty_of_one_item = 0;
-
-                    //part 01 of the loop
-                    foreach (string data in Public_Items.barcode_item_names.ToList())
-                    {
-                        //lbxTesting.Items.Add(data);
-                        ItemNameThatUsedToFindQTY = data;
-                        if (ItemNameThatUsedToFindQTY == data)
+                        //Inserting barcode item details into the database (barcode item that included into the bill)
+                        foreach (double barcodes in Public_Items.barcode)
                         {
-                            //part 02 of the loop
-                            foreach (string names in Public_Items.barcode_item_names)
+                            Program.cmd.Connection = Program.con;
+                            Program.con.Open();
+                            Program.cmd.CommandText = "INSERT INTO TblBill_IteamDetails_Barcode VALUES('" + lblBill_No.Text + "', '" + barcodes + "') ";
+                            Program.cmd.ExecuteNonQuery();
+                            Program.con.Close();
+                        }
+
+                        // Inserting Non barcode item details into the database
+                        foreach (string nonBarcodeItemNames in Public_Items.non_barcodeItem_Names)
+                        {
+                            Program.cmd.Connection = Program.con;
+                            Program.con.Open();
+                            Program.cmd.CommandText = "INSERT INTO TblBill_ItemDetails_OItems VALUES('" + lblBill_No.Text + "', '" + nonBarcodeItemNames + "') ";
+                            Program.cmd.ExecuteNonQuery();
+                            Program.con.Close();
+                        }
+
+                        ///
+                        /// Step 04 // Algorithm type =  Counting / Frequency algorithm (This code is use to find barcode item qty and insert those new data into 
+                        /// "Barcode_item_name_and_qty" list that use to print final Bill)
+                        /// 
+                        string ItemNameThatUsedToFindQTY = "";
+                        int qty_of_one_item = 0;
+
+                        //part 01 of the loop
+                        foreach (string data in Public_Items.barcode_item_names.ToList())
+                        {
+                            //lbxTesting.Items.Add(data);
+                            ItemNameThatUsedToFindQTY = data;
+                            if (ItemNameThatUsedToFindQTY == data)
                             {
-                                if (ItemNameThatUsedToFindQTY == names)
+                                //part 02 of the loop
+                                foreach (string names in Public_Items.barcode_item_names)
                                 {
-                                    qty_of_one_item++;
+                                    if (ItemNameThatUsedToFindQTY == names)
+                                    {
+                                        qty_of_one_item++;
+                                    }
+
                                 }
 
+                                if (!Public_Items.Barcode_item_name_and_qty.ContainsKey(ItemNameThatUsedToFindQTY))
+                                {
+                                    Public_Items.Barcode_item_name_and_qty.Add(ItemNameThatUsedToFindQTY, qty_of_one_item);
+                                }
+
+
+                                Public_Items.barcode_item_names.Remove(ItemNameThatUsedToFindQTY);
+                                ItemNameThatUsedToFindQTY = "";
+                                qty_of_one_item = 0;
+
                             }
-
-                            if (!Public_Items.Barcode_item_name_and_qty.ContainsKey(ItemNameThatUsedToFindQTY))
-                            {
-                                Public_Items.Barcode_item_name_and_qty.Add(ItemNameThatUsedToFindQTY, qty_of_one_item);
-                            }
-
-
-                            Public_Items.barcode_item_names.Remove(ItemNameThatUsedToFindQTY);
-                            ItemNameThatUsedToFindQTY = "";
-                            qty_of_one_item = 0;
 
                         }
 
+
+                        ///
+                        /// Step 05 Correct and working code
+                        /// 
+                        int itemCount = 0;
+                        itemCount = Convert.ToInt16(Public_Items.non_barcodeItem_Names.Count + Public_Items.Barcode_item_name_and_qty.Count);
+                        int dynmicHeight = 0;
+
+                        dynmicHeight = 200 + (itemCount * 20); /*20 is a space value that single item get from the Bill*/
+
+                        printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custom",/*Width (80mm)*/315, /*Height*/ dynmicHeight);
+
+                        printPreviewDialog1.Document = printDocument1;
+                        printPreviewDialog1.ShowDialog();
+
                     }
-
-
-                    ///
-                    /// Step 05 Correct and working code
-                    /// 
-                    int itemCount = 0;
-                    itemCount = Convert.ToInt16(Public_Items.non_barcodeItem_Names.Count + Public_Items.Barcode_item_name_and_qty.Count);
-                    int dynmicHeight = 0;
-
-                    dynmicHeight = 200 + (itemCount * 20); /*20 is a space value that single item get from the Bill*/
-
-                    printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custom",/*Width (80mm)*/315, /*Height*/ dynmicHeight);
-
-                    printPreviewDialog1.Document = printDocument1;
-                    printPreviewDialog1.ShowDialog();
-
                 }
+
+               
             }
             catch (Exception ex)
             {
@@ -781,7 +791,7 @@ namespace POS02_For_Restuarent
             else
             {
                 ClearTextTimer = new Timer();
-                ClearTextTimer.Interval = 1000;// 1 second
+                ClearTextTimer.Interval = 500;// 0.5 second
                 ClearTextTimer.Tick += (s, args) =>
                 {
                     tbxBarcode.Text = "";
@@ -872,36 +882,46 @@ namespace POS02_For_Restuarent
         {
             try
             {
-                double painAmount = 0;
-                double total = 0;
-
-
-                if (cmbPayment_method.Text == "Please select")
+                if(Public_Items.barcode_Item_price.Count() > 0)
                 {
-                    MessageBox.Show("Please selecte a payment method", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    cmbPayment_method.Focus();
-
-                }
-                else if (tbxPaidAmount.Text == string.Empty)
-                {
-                    MessageBox.Show("Please enter the paind amount", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    tbxPaidAmount.Focus();
-                }
-                else if (Convert.ToDouble(tbxPaidAmount.Text) < Convert.ToDouble(tbxTotal.Text))
-                {
-                    MessageBox.Show("The paid amount is less than the bill amount", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    tbxPaidAmount.Focus();
+                    MessageBox.Show("!! You do not include the barcode items. Please include those","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    btnSumOfBarcodeItems.Focus();
                 }
                 else
                 {
+                    double painAmount = 0;
+                    double total = 0;
 
-                    painAmount = Convert.ToDouble(tbxPaidAmount.Text);
-                    total = Convert.ToDouble(tbxTotal.Text);
 
-                    double balance = 0;
-                    balance = painAmount - total;
-                    tbxBalance.Text = balance.ToString();
+                    if (cmbPayment_method.Text == "Please select")
+                    {
+                        MessageBox.Show("Please selecte a payment method", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        cmbPayment_method.Focus();
+
+                    }
+                    else if (tbxPaidAmount.Text == string.Empty)
+                    {
+                        MessageBox.Show("Please enter the paind amount", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        tbxPaidAmount.Focus();
+                    }
+                    else if (Convert.ToDouble(tbxPaidAmount.Text) < Convert.ToDouble(tbxTotal.Text))
+                    {
+                        MessageBox.Show("The paid amount is less than the bill amount", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        tbxPaidAmount.Focus();
+                    }
+                    else
+                    {
+
+                        painAmount = Convert.ToDouble(tbxPaidAmount.Text);
+                        total = Convert.ToDouble(tbxTotal.Text);
+
+                        double balance = 0;
+                        balance = painAmount - total;
+                        tbxBalance.Text = balance.ToString();
+                    }
                 }
+
+               
 
             }
             catch (Exception ex)
