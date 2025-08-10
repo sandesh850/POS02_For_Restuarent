@@ -1091,11 +1091,22 @@ namespace POS02_For_Restuarent
             graphics.DrawString("Total:", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(230, initial_value_of_position04+10));
             graphics.DrawString(tbxTotal.Text, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(260, initial_value_of_position04+10));
 
+            //// Paid amount 
+            //graphics.DrawString("Paid amount:", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(210, initial_value_of_position04 + 20));
+            //graphics.DrawString(tbxPaidAmount.Text, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(260, initial_value_of_position04 + 20));
+
+            //// Balance 
+            //graphics.DrawString("Balance:", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(230, initial_value_of_position04 + 30));
+            //graphics.DrawString(tbxBalance.Text, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(260, initial_value_of_position04 + 30));
+
+
+            graphics.DrawString("Thank you. Please visit again", new Font("Arial", 4, FontStyle.Regular), Brushes.Black, new Point(120, initial_value_of_position04 + 23));
+
             ///
             /// Footer
             /// 
 
-            graphics.DrawString("-------------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black,new Point(0, initial_value_of_position04 + 20));
+            graphics.DrawString("-------------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black,new Point(0, initial_value_of_position04 + 25));
 
             graphics.DrawString("Developed by Ravidu Sandesh", new Font("Arial", 4, FontStyle.Regular), Brushes.Black, new Point(120, initial_value_of_position04 + 40));
             graphics.DrawString("Contact: 077 1634350", new Font("Arial", 3, FontStyle.Regular), Brushes.Black, new Point(137, initial_value_of_position04 + 50));
