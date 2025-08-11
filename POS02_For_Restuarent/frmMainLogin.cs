@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace POS02_For_Restuarent
 {
@@ -70,6 +71,8 @@ namespace POS02_For_Restuarent
 
         private void frmMainLogin_Load(object sender, EventArgs e)
         {
+           
+
             int rowCont = 0;
            
             using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-2249HJB;Initial Catalog=Dbs_POS02_Restaurant;User ID=sa;Password=12;"))

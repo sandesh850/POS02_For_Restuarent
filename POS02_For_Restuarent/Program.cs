@@ -23,7 +23,23 @@ namespace POS02_For_Restuarent
         [STAThread]
         static void Main()
         {
-          
+            XmlDocument xmlDoc = new XmlDocument();
+
+            try
+            {
+                // Loading xml document
+                xmlDoc.Load("ConnectionString.xml");
+            }
+            catch
+            {
+
+                MessageBox.Show("You need to register your device", "Inform", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                frmXmlCreatingDatabaseConnection xmlDocCopy = new frmXmlCreatingDatabaseConnection();
+                xmlDocCopy.ShowDialog();
+
+            }
+
+
             // loading xml file
             XmlDocument xmlDocument = new XmlDocument();
 
@@ -42,14 +58,10 @@ namespace POS02_For_Restuarent
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMainForm());
+            Application.Run(new frmMainLogin());
         }
 
         
-
-      
-
-
 
     }
 

@@ -1,8 +1,0 @@
-<ConnectionStringDetails>
-  <Data>
-    <DataSource>DESKTOP-2249HJB</DataSource>
-    <InitialCatelog>Dbs_POS02_Restaurant</InitialCatelog>
-    <UserID>sa</UserID>
-    <Password>12</Password>
-  </Data>
-</ConnectionStringDetails>
