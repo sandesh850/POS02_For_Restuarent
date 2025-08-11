@@ -176,6 +176,12 @@
     <Compile Include="frmUpdate_barcodeItems.Designer.cs">
       <DependentUpon>frmUpdate_barcodeItems.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmXmlCreatingDatabaseConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmXmlCreatingDatabaseConnection.Designer.cs">
+      <DependentUpon>frmXmlCreatingDatabaseConnection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmAddBarcode_Items.resx">
@@ -234,6 +240,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmUpdate_barcodeItems.resx">
       <DependentUpon>frmUpdate_barcodeItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmXmlCreatingDatabaseConnection.resx">
+      <DependentUpon>frmXmlCreatingDatabaseConnection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

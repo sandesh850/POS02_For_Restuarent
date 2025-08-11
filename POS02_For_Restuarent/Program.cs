@@ -5,17 +5,17 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace POS02_For_Restuarent
 {
+   
     internal static class Program
     {
-        public static SqlConnection con = new SqlConnection("Data Source=DESKTOP-2249HJB;Initial Catalog=Dbs_POS02_Restaurant;User ID=sa;Password=12;"); // Sub connection string
+        public static SqlConnection con;
         public static SqlCommand cmd = new SqlCommand();
         public static SqlDataAdapter da = new SqlDataAdapter();
         public static DataSet ds = new DataSet();
-
-       
 
         /// <summary>
         /// The main entry point for the application.
@@ -23,12 +23,42 @@ namespace POS02_For_Restuarent
         [STAThread]
         static void Main()
         {
+          
+            // loading xml file
+            XmlDocument xmlDocument = new XmlDocument();
+
+            xmlDocument.Load("ConnectionString.xml");
+            XmlNodeList node = xmlDocument.GetElementsByTagName("Data");
+
+            foreach(XmlNode data in node)
+            {
+                XmlDetails.DataSource = data["DataSource"].InnerText;
+                XmlDetails.Initial_catelog = data["InitialCatelog"].InnerText;
+                XmlDetails.UserID = data["UserID"].InnerText;
+                XmlDetails.password = data["Password"].InnerText;
+            }
+
+            con = new SqlConnection($"Data Source={XmlDetails.DataSource};Initial Catalog={XmlDetails.Initial_catelog};User ID={XmlDetails.UserID};Password={XmlDetails.password};"); // Sub connection string (widly used)
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmMainForm());
-
-           
         }
+
+        
+
+      
+
+
+
+    }
+
+    public class XmlDetails
+    {
+        public static string DataSource = "";
+        public static string Initial_catelog = "";
+        public static string UserID = "";
+        public static string password = "";
     }
 
     /// <summary>
@@ -36,7 +66,7 @@ namespace POS02_For_Restuarent
     /// </summary>
     public static class SQLCon
     {
-        private static readonly string con = "Data Source=DESKTOP-2249HJB;Initial Catalog=Dbs_POS02_Restaurant;User ID=sa;Password=12;";
+        private static readonly string con = $"Data Source={XmlDetails.DataSource};Initial Catalog={XmlDetails.Initial_catelog};User ID={XmlDetails.UserID};Password={XmlDetails.password}";
 
         public static SqlConnection GetConnection()
         {

@@ -27,3 +27,4 @@ D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_F
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmRemovingBarcodeItemCountConfirmation.resources
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.exe.config
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmProductKey.resources
+D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmXmlCreatingDatabaseConnection.resources
