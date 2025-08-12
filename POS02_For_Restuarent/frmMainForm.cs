@@ -73,9 +73,15 @@ namespace POS02_For_Restuarent
             {
                 LCount = Convert.ToInt32(Program.ds.Tables["TblLastCount_dst"].Rows[0]["count"]);
             }
-           
 
-            if(LCount >= 30)
+            if (LCount == 29)
+            {
+
+                MessageBox.Show("Your product key will expire in one day", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+
+            if (LCount >= 30)
             {
                 
                 MessageBox.Show("Limit Exceeded","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
