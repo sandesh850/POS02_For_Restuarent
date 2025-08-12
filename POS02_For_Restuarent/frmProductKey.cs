@@ -79,7 +79,7 @@ namespace POS02_For_Restuarent
 
                 double productKey_from_database =0;
                 productKey_from_database = Convert.ToDouble( Program.ds.Tables["TblWarning_dst"].Rows[0]["errorNumber"]);
-                ProductKey = productKey_from_database * 2002;
+                ProductKey = productKey_from_database * 56;
 
                 if(user_entered_key == ProductKey)
                 {
@@ -89,7 +89,16 @@ namespace POS02_For_Restuarent
                     Program.cmd.ExecuteNonQuery();
                     Program.con.Close();
 
-                    MessageBox.Show("Login Success");
+                    Program.cmd.Connection = Program.con;
+                    Program.con.Open();
+                    Program.cmd.CommandText = "DELETE FROM Tbltracking";
+                    Program.cmd.ExecuteNonQuery();
+                    Program.con.Close();
+
+
+                    MessageBox.Show("Authentication Success");
+                    MessageBox.Show("Please reopen the software");
+                    Application.Exit();
                 }
 
                
