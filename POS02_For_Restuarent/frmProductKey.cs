@@ -67,8 +67,13 @@ namespace POS02_For_Restuarent
                     Program.cmd.ExecuteNonQuery();
                     Program.con.Close();
 
-                    MessageBox.Show("Login Success");
+                    MessageBox.Show("Authentication Success");
+                    MessageBox.Show("Please reopen the software");
                     Application.Exit();
+                }
+                else
+                {
+                    MessageBox.Show("Incorrect product key","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }
 
             }
@@ -100,8 +105,12 @@ namespace POS02_For_Restuarent
                     MessageBox.Show("Please reopen the software");
                     Application.Exit();
                 }
+                else
+                {
+                    MessageBox.Show("Incorrect product key", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
-               
+
             }
 
 
