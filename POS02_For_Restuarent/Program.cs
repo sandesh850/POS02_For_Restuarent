@@ -39,26 +39,34 @@ namespace POS02_For_Restuarent
 
             }
 
-
-            // loading xml file
-            XmlDocument xmlDocument = new XmlDocument();
-
-            xmlDocument.Load("ConnectionString.xml");
-            XmlNodeList node = xmlDocument.GetElementsByTagName("Data");
-
-            foreach(XmlNode data in node)
+            try
             {
-                XmlDetails.DataSource = data["DataSource"].InnerText;
-                XmlDetails.Initial_catelog = data["InitialCatelog"].InnerText;
-                XmlDetails.UserID = data["UserID"].InnerText;
-                XmlDetails.password = data["Password"].InnerText;
+                // loading xml file
+                XmlDocument xmlDocument = new XmlDocument();
+
+                xmlDocument.Load("ConnectionString.xml");
+                XmlNodeList node = xmlDocument.GetElementsByTagName("Data");
+
+                foreach (XmlNode data in node)
+                {
+                    XmlDetails.DataSource = data["DataSource"].InnerText;
+                    XmlDetails.Initial_catelog = data["InitialCatelog"].InnerText;
+                    XmlDetails.UserID = data["UserID"].InnerText;
+                    XmlDetails.password = data["Password"].InnerText;
+                }
+
+                con = new SqlConnection($"Data Source={XmlDetails.DataSource};Initial Catalog={XmlDetails.Initial_catelog};User ID={XmlDetails.UserID};Password={XmlDetails.password};"); // Sub connection string (widly used)
+
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new frmMainLogin());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            con = new SqlConnection($"Data Source={XmlDetails.DataSource};Initial Catalog={XmlDetails.Initial_catelog};User ID={XmlDetails.UserID};Password={XmlDetails.password};"); // Sub connection string (widly used)
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMainLogin());
+           
         }
 
         

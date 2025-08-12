@@ -201,7 +201,8 @@ namespace POS02_For_Restuarent
             tbxUserId.Clear();
             tbxpassword.Clear();
 
-
+            MessageBox.Show("Please reopen the software","",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            Application.Exit();
         }
     }
 }
