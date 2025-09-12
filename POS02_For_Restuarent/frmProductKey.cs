@@ -29,7 +29,7 @@ namespace POS02_For_Restuarent
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-           
+            string doub = "";
 
 
         }
