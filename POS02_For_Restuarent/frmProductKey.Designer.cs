@@ -43,7 +43,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(107, 40);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(468, 52);
+            this.label3.Size = new System.Drawing.Size(463, 51);
             this.label3.TabIndex = 10;
             this.label3.Text = "Enter the Product Key";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -108,6 +108,7 @@
             this.Name = "frmProductKey";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmProductKey_FormClosing);
+            //this.Load += new System.EventHandler(this.frmProductKey_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

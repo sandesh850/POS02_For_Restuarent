@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS02_For_Restuarent", "POS02_For_Restuarent\POS02_For_Restuarent.csproj", "{06819C0B-0F7D-49E7-9C53-776BFBB4D078}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "POS02", "..\..\..\All Exe\POS02\POS02\POS02.vdproj", "{3A180C85-B8EE-2853-585E-BD7B8BEA2C3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,13 @@ Global
 		{06819C0B-0F7D-49E7-9C53-776BFBB4D078}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06819C0B-0F7D-49E7-9C53-776BFBB4D078}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06819C0B-0F7D-49E7-9C53-776BFBB4D078}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A180C85-B8EE-2853-585E-BD7B8BEA2C3F}.Debug|Any CPU.ActiveCfg = Debug
+		{3A180C85-B8EE-2853-585E-BD7B8BEA2C3F}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {676E5298-5022-4A7B-824B-011832AB18A7}
 	EndGlobalSection
 EndGlobal

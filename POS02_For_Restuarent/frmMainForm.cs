@@ -949,7 +949,7 @@ namespace POS02_For_Restuarent
             Graphics graphics = e.Graphics; // Retrieving page canvas 
 
             // Header area
-            graphics.DrawString("POS Bill", new Font("Arial", 18, FontStyle.Bold), Brushes.Black, new Point(/*X*/100,/*Y*/ 5));
+            graphics.DrawString("POS Bill", new Font("Arial", 18, FontStyle.Bold), Brushes.Black, new Point(/*X*/100,/*Y*/ 4));
 
             graphics.DrawString("Address", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(130, 35));
 
@@ -970,7 +970,7 @@ namespace POS02_For_Restuarent
 
             graphics.DrawString("Qty", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(200, 120));
 
-            graphics.DrawString("Amount", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(250, 120));
+            graphics.DrawString("Amount", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(240, 120));
 
             graphics.DrawString("-------------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, 130));
 
@@ -1112,10 +1112,10 @@ namespace POS02_For_Restuarent
                 initial_value_of_position04 = initial_value_of_position04 + 20;
             }
 
-            graphics.DrawString("-------------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, initial_value_of_position04-6));
+            graphics.DrawString("-------------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black, new Point(0, initial_value_of_position04-10));
             // Total 
-            graphics.DrawString("Total:", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(230, initial_value_of_position04+10));
-            graphics.DrawString(tbxTotal.Text, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(260, initial_value_of_position04+10));
+            graphics.DrawString("Total:", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(210, initial_value_of_position04+7));
+            graphics.DrawString(tbxTotal.Text, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(240, initial_value_of_position04+7));
 
             //// Paid amount 
             //graphics.DrawString("Paid amount:", new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(210, initial_value_of_position04 + 20));
@@ -1126,41 +1126,41 @@ namespace POS02_For_Restuarent
             //graphics.DrawString(tbxBalance.Text, new Font("Arial", 8, FontStyle.Regular), Brushes.Black, new Point(260, initial_value_of_position04 + 30));
 
 
-            graphics.DrawString("Thank you. Please visit again", new Font("Arial", 4, FontStyle.Regular), Brushes.Black, new Point(120, initial_value_of_position04 + 23));
+            graphics.DrawString("Thank you. Please visit again", new Font("Arial", 6, FontStyle.Regular), Brushes.Black, new Point(100, initial_value_of_position04 + 21));
 
             ///
             /// Footer
             /// 
 
-            graphics.DrawString("-------------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black,new Point(0, initial_value_of_position04 + 25));
+            graphics.DrawString("-------------------------------------------------------------------", new Font("Arial", 10, FontStyle.Regular), Brushes.Black,new Point(0, initial_value_of_position04 + 22));
 
-            graphics.DrawString("Developed by Ravidu Sandesh", new Font("Arial", 4, FontStyle.Regular), Brushes.Black, new Point(120, initial_value_of_position04 + 40));
-            graphics.DrawString("Contact: 077 1634350", new Font("Arial", 3, FontStyle.Regular), Brushes.Black, new Point(137, initial_value_of_position04 + 50));
+            graphics.DrawString("Developed by Ravidu Sandesh", new Font("Arial", 6, FontStyle.Regular), Brushes.Black, new Point(100, initial_value_of_position04 + 35));
+            graphics.DrawString("Contact: 077 1634350", new Font("Arial", 6, FontStyle.Regular), Brushes.Black, new Point(110, initial_value_of_position04 + 45));
 
             ///
             /// clearing all variables and complete main form
             /// 
-            Public_Items.non_barcodeItem_Names.Clear();
-            Public_Items.non_barcodeItem_Price.Clear();
-            Public_Items.non_barcodeItem_qty.Clear();
-            Public_Items.Amount.Clear();
-            Public_Items.ItemNames = "";
+            //Public_Items.non_barcodeItem_Names.Clear();
+            //Public_Items.non_barcodeItem_Price.Clear();
+            //Public_Items.non_barcodeItem_qty.Clear();
+            //Public_Items.Amount.Clear();
+            //Public_Items.ItemNames = "";
 
-            Public_Items.barcode_item_names.Clear();
-            Public_Items.barcode.Clear();
-            Public_Items.barcode_Item_price.Clear();
-            Public_Items.barcode_item_prices_02.Clear();
-            Public_Items.Barcode_item_name_and_qty.Clear();
+            //Public_Items.barcode_item_names.Clear();
+            //Public_Items.barcode.Clear();
+            //Public_Items.barcode_Item_price.Clear();
+            //Public_Items.barcode_item_prices_02.Clear();
+            //Public_Items.Barcode_item_name_and_qty.Clear();
 
-            Public_Items.Globale_index_of_selected_itemBarcode = 0;
-            Public_Items.barcodeItemThatSelectedToRemove = "";
+            //Public_Items.Globale_index_of_selected_itemBarcode = 0;
+            //Public_Items.barcodeItemThatSelectedToRemove = "";
 
-            lbxIncluded_items_to_the_bill.Items.Clear();
-            tbxTotal.Text = "0";
-            tbxQty.Text = "0";
-            tbxBalance.Clear();
-            tbxPaidAmount.Clear();
-            cmbPayment_method.Text = "Please select";
+            //lbxIncluded_items_to_the_bill.Items.Clear();
+            //tbxTotal.Text = "0";
+            //tbxQty.Text = "0";
+            //tbxBalance.Clear();
+            //tbxPaidAmount.Clear();
+            //cmbPayment_method.Text = "Please select";
 
         }
 
@@ -1212,12 +1212,42 @@ namespace POS02_For_Restuarent
 
             lblBill_No.Text = Last_bill_No.ToString();
 
+            ///
+            /// clearing all variables and complete main form
+            /// 
+            Public_Items.non_barcodeItem_Names.Clear();
+            Public_Items.non_barcodeItem_Price.Clear();
+            Public_Items.non_barcodeItem_qty.Clear();
+            Public_Items.Amount.Clear();
+            Public_Items.ItemNames = "";
 
+            Public_Items.barcode_item_names.Clear();
+            Public_Items.barcode.Clear();
+            Public_Items.barcode_Item_price.Clear();
+            Public_Items.barcode_item_prices_02.Clear();
+            Public_Items.Barcode_item_name_and_qty.Clear();
+
+            Public_Items.Globale_index_of_selected_itemBarcode = 0;
+            Public_Items.barcodeItemThatSelectedToRemove = "";
+
+            lbxIncluded_items_to_the_bill.Items.Clear();
+            tbxTotal.Text = "0";
+            tbxQty.Text = "0";
+            tbxBalance.Clear();
+            tbxPaidAmount.Clear();
+            cmbPayment_method.Text = "Please select";
         }
 
         private void printDocument1_EndPrint(object sender, PrintEventArgs e)
         {
+            
             //printPreviewDialog1.Close();
+           
+        }
+
+        private void printDocument1_QueryPageSettings(object sender, QueryPageSettingsEventArgs e)
+        {
+
         }
     }
 }
