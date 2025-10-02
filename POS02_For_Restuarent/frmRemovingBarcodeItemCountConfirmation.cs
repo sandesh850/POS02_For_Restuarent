@@ -32,7 +32,7 @@ namespace POS02_For_Restuarent
 
             foreach(var data in Public_Items.barcode_item_names)
             {
-                if(data.Contains(Public_Items.barcodeItemThatSelectedToRemove))
+                if(data.Equals(Public_Items.barcodeItemThatSelectedToRemove))
                 {
                    selectedBarcodeItemCount++;
                 }
@@ -41,14 +41,14 @@ namespace POS02_For_Restuarent
             }
 
             // Use to count the existing barcode item count after clicking print button
-            // Reson for use thiscode: After clicking print button, the barcode item name remove from the barcode_item_names list
-            foreach (KeyValuePair<string, int> pair in Public_Items.Barcode_item_name_and_qty)
-            {
-                if ($"{pair.Key}".Contains(Public_Items.barcodeItemThatSelectedToRemove))
-                {
-                    selectedBarcodeItemCount = Convert.ToInt32( $"{pair.Value}");
-                }
-            }
+            // Reason for use thiscode: After clicking print button, the barcode item name remove from the barcode_item_names list
+            //foreach (KeyValuePair<string, int> pair in Public_Items.Barcode_item_name_and_qty)
+            //{
+            //    if ($"{pair.Key}".Contains(Public_Items.barcodeItemThatSelectedToRemove))
+            //    {
+            //        selectedBarcodeItemCount = Convert.ToInt32($"{pair.Value}");
+            //    }
+            //}
 
             tbxSelectedItemCount.Text = selectedBarcodeItemCount.ToString();
         }
@@ -118,17 +118,7 @@ namespace POS02_For_Restuarent
 
             newValue = existingItemCount - valueThatNeedToRemove;
 
-            /// incorrect code
-            //string ItemNameToUpdate = string.Empty;
-
-            //foreach (KeyValuePair<string,int> pair in Public_Items.Barcode_item_name_and_qty)
-            //{
-            //    if(SelectedItemNameToRemove == pair.Key)
-            //    {
-            //        ItemNameToUpdate = pair.Key;
-            //    }
-            //}
-
+           
             if(SelectedItemNameToRemove != null)
             { 
                 Public_Items.Barcode_item_name_and_qty[SelectedItemNameToRemove] = newValue;
@@ -140,12 +130,7 @@ namespace POS02_For_Restuarent
             }
             // End
 
-            ///Use for tesiting
-            //foreach (KeyValuePair<string, int> pair in Public_Items.Barcode_item_name_and_qty)
-            //{
-            //    MessageBox.Show($"{pair.Key}= {pair.Value}");
-            //}
-
+            
             MessageBox.Show("Deleted", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             // Step 04 Removing item from lbxIncluded_items_to_the_bill (main form)

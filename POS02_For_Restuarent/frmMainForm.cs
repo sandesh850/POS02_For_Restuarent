@@ -27,12 +27,16 @@ namespace POS02_For_Restuarent
 
         private void btnAddItems_Click(object sender, EventArgs e)
         {
+            tbxSearch.Text = "Search"; // Seting "Search" Value into Non-Barcode Item search bar (First search bar that use to add Non-barcode items into bill)
+
             frmSubLogin_Add_Items subLogin = new frmSubLogin_Add_Items();
             subLogin.ShowDialog();
         }
 
         private void btnUpdateItems_Click(object sender, EventArgs e)
         {
+            tbxSearch.Text = "Search"; // Seting "Search" Value into Non-Barcode Item search bar (First search bar that use to add Non-barcode items into bill)
+
             frmSubLogin_update_items login_update_barcode_items = new frmSubLogin_update_items();
             login_update_barcode_items.ShowDialog();
         }
@@ -40,6 +44,8 @@ namespace POS02_For_Restuarent
 
         private void btnRemoveItems_Click(object sender, EventArgs e)
         {
+            tbxSearch.Text = "Search"; // Seting "Search" Value into Non-Barcode Item search bar (First search bar that use to add Non-barcode items into bill)
+
             frmSubLogin_Remove_items subRemove = new frmSubLogin_Remove_items();
             subRemove.ShowDialog();
         }
@@ -273,6 +279,8 @@ namespace POS02_For_Restuarent
 
         private void btnLoginConfig_Click(object sender, EventArgs e)
         {
+            tbxSearch.Text = "Search"; // Seting "Search" Value into Non-Barcode Item search bar (First search bar that use to add Non-barcode items into bill)
+
             frmUpdateLogin updateLogin = new frmUpdateLogin();
             updateLogin.ShowDialog();
         }
@@ -284,7 +292,7 @@ namespace POS02_For_Restuarent
 
         private void tbxSearch_Leave(object sender, EventArgs e)
         {
-            tbxSearch.Text = "Search";
+            //tbxSearch.Text = "Search";
         }
 
         private void tbxSearch_TextChanged(object sender, EventArgs e)
@@ -363,7 +371,7 @@ namespace POS02_For_Restuarent
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-
+           
 
             /// 
             /// Statep 01
@@ -431,7 +439,9 @@ namespace POS02_For_Restuarent
 
             try
             {
-                if(Public_Items.barcode_Item_price.Count() > 0)
+                tbxSearch.Text = "Search"; // Seting "Search" Value into Non-Barcode Item search bar (First search bar that use to add Non-barcode items into bill)
+
+                if (Public_Items.barcode_Item_price.Count() > 0)
                 {
                     MessageBox.Show("!! You do not include the barcode items. Please include those", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     btnSumOfBarcodeItems.Focus();
@@ -509,6 +519,15 @@ namespace POS02_For_Restuarent
                                 {
                                     Public_Items.Barcode_item_name_and_qty.Add(ItemNameThatUsedToFindQTY, qty_of_one_item);
                                 }
+                                else
+                                {
+                                    
+                                    //int Existing_qty_of_Item_in_The_list = Public_Items.Barcode_item_name_and_qty[ItemNameThatUsedToFindQTY];
+                                    //Existing_qty_of_Item_in_The_list++;
+                                    //Public_Items.Barcode_item_name_and_qty[ItemNameThatUsedToFindQTY] = Existing_qty_of_Item_in_The_list;
+                                    //break;
+
+                                }
 
 
                                 Public_Items.barcode_item_names.Remove(ItemNameThatUsedToFindQTY);
@@ -523,16 +542,16 @@ namespace POS02_For_Restuarent
                         ///
                         /// Step 05 Correct and working code
                         /// 
-                        int itemCount = 0;
-                        itemCount = Convert.ToInt16(Public_Items.non_barcodeItem_Names.Count + Public_Items.Barcode_item_name_and_qty.Count);
-                        int dynmicHeight = 0;
+                        //int itemCount = 0;
+                        //itemCount = Convert.ToInt16(Public_Items.non_barcodeItem_Names.Count + Public_Items.Barcode_item_name_and_qty.Count);
+                        //int dynmicHeight = 0;
 
-                        dynmicHeight = 200 + (itemCount * 20); /*20 is a space value that single item get from the Bill*/
+                        //dynmicHeight = 200 + (itemCount * 20); /*20 is a space value that single item get from the Bill*/
 
-                        printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custom",/*Width (80mm)*/315, /*Height*/ dynmicHeight);
+                        //printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custom",/*Width (80mm)*/315, /*Height*/ dynmicHeight);
 
-                        printPreviewDialog1.Document = printDocument1;
-                        printPreviewDialog1.ShowDialog();
+                        //printPreviewDialog1.Document = printDocument1;
+                        //printPreviewDialog1.ShowDialog();
 
                     }
                 }
@@ -554,6 +573,21 @@ namespace POS02_For_Restuarent
         {
             try
             {
+                //int cn = 0;
+                //foreach(var data in Public_Items.barcode_item_names)
+                //{
+                //    if (data.Equals(lbxIncluded_items_to_the_bill.SelectedItem))
+                //    {
+                //        cn++;
+                //    }
+                //}
+              
+                //MessageBox.Show(cn.ToString());
+
+
+
+                tbxSearch.Text = "Search"; // Seting "Search" Value into Non-Barcode Item search bar (First search bar that use to add Non-barcode items into bill)
+
                 /// Step 01
                 if (DialogResult.Yes == MessageBox.Show("Are you sure about this?","Warning",MessageBoxButtons.YesNo,MessageBoxIcon.Warning))
                 {
@@ -720,7 +754,16 @@ namespace POS02_For_Restuarent
                 foreach (string listItems in Public_Items.non_barcodeItem_Names)
                 {
 
-                    if (!lbxIncluded_items_to_the_bill.Items.Contains(listItems))
+                    if (!lbxIncluded_items_to_the_bill.Items.Contains(listItems))// This code use to stop displaying duplicate values
+                    {
+                        lbxIncluded_items_to_the_bill.Items.Add(listItems);
+                    }
+                }
+
+                foreach (string listItems in Public_Items.barcode_item_names)
+                {
+
+                    if (!lbxIncluded_items_to_the_bill.Items.Contains(listItems))// This code use to stop displaying duplicate values
                     {
                         lbxIncluded_items_to_the_bill.Items.Add(listItems);
                     }
@@ -731,11 +774,9 @@ namespace POS02_For_Restuarent
 
         private void tbxSearchIncluded_Items_TextChanged(object sender, EventArgs e)
         {
-           
-
-            if(tbxSearchIncluded_Items.Text == "Search")
+            if (tbxSearchIncluded_Items.Text == "Search")
             {
-                foreach(string listItems in Public_Items.non_barcodeItem_Names)
+                foreach (string listItems in Public_Items.non_barcodeItem_Names)
                 {
                     lbxIncluded_items_to_the_bill.Items.Add(listItems);
                 }
@@ -744,12 +785,20 @@ namespace POS02_For_Restuarent
             {
                 lbxIncluded_items_to_the_bill.Items.Clear();
                 lbxIncluded_items_to_the_bill.Refresh();
+
                 foreach (string includedItems in Public_Items.non_barcodeItem_Names)
                 {
-                    //if (includedItems.IndexOf(tbxSearchIncluded_Items.Text,StringComparison.OrdinalIgnoreCase) >0 )
-                    //{
-                    //    lbxIncluded_items_to_the_bill.Items.Add(includedItems);
-                    //}
+                   
+                    if (tbxSearchIncluded_Items.Text == includedItems)
+                    {
+                        lbxIncluded_items_to_the_bill.Items.Add(includedItems);
+                    }
+                }
+
+                
+                foreach (string includedItems in Public_Items.barcode_item_names)
+                {
+                    
                     if (tbxSearchIncluded_Items.Text == includedItems)
                     {
                         lbxIncluded_items_to_the_bill.Items.Add(includedItems);
@@ -760,7 +809,7 @@ namespace POS02_For_Restuarent
 
         private void tbxBarcode_TextChanged(object sender, EventArgs e)
         {
-            
+            tbxSearch.Text = "Search"; // Seting "Search" Value into Non-Barcode Item search bar (First search bar that use to add Non-barcode items into bill)
 
             //Step 01
             if (Program.ds.Tables["TblBarcode_Details_dst"] != null)
@@ -828,6 +877,8 @@ namespace POS02_For_Restuarent
         {
             try
             {
+                tbxSearch.Text = "Search"; // Seting "Search" Value into Non-Barcode Item search bar (First search bar that use to add Non-barcode items into bill)
+
                 double existig_value_of_tbxTotal = 0;
                 //step 01 || calculating total of barcode items with existing total in tbxTotal
                 double sum = Public_Items.barcode_Item_price.Sum();
@@ -888,7 +939,9 @@ namespace POS02_For_Restuarent
         {
             try
             {
-                if(Public_Items.barcode_Item_price.Count() > 0)
+                tbxSearch.Text = "Search"; // Seting "Search" Value into Non-Barcode Item search bar (First search bar that use to add Non-barcode items into bill)
+
+                if (Public_Items.barcode_Item_price.Count() > 0)
                 {
                     MessageBox.Show("!! You do not include the barcode items. Please include those","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     btnSumOfBarcodeItems.Focus();
@@ -1248,6 +1301,26 @@ namespace POS02_For_Restuarent
         private void printDocument1_QueryPageSettings(object sender, QueryPageSettingsEventArgs e)
         {
 
+        }
+
+        private void tbxBarcode_Click(object sender, EventArgs e)
+        {
+            tbxSearch.Text = "Search"; // Seting "Search" Value into Non-Barcode Item search bar (First search bar that use to add Non-barcode items into bill)
+        }
+
+        private void tbxPaidAmount_Click(object sender, EventArgs e)
+        {
+            tbxSearch.Text = "Search"; // Seting "Search" Value into Non-Barcode Item search bar (First search bar that use to add Non-barcode items into bill)
+        }
+
+        private void tbxPaidAmount_TextChanged(object sender, EventArgs e)
+        {
+            //tbxSearch.Text = "Search"; // Seting "Search" Value into Non-Barcode Item search bar (First search bar that use to add Non-barcode items into bill)
+        }
+
+        private void frmMainForm_Click(object sender, EventArgs e)
+        {
+            tbxSearch.Text = "Search"; // Seting "Search" Value into Non-Barcode Item search bar (First search bar that use to add Non-barcode items into bill)
         }
     }
 }

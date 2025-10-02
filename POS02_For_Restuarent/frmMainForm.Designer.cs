@@ -123,11 +123,11 @@ namespace POS02_For_Restuarent
             // 
             // tbxSearchIncluded_Items
             // 
-            this.tbxSearchIncluded_Items.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxSearchIncluded_Items.Location = new System.Drawing.Point(13, 508);
+            this.tbxSearchIncluded_Items.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxSearchIncluded_Items.Location = new System.Drawing.Point(13, 497);
             this.tbxSearchIncluded_Items.Multiline = true;
             this.tbxSearchIncluded_Items.Name = "tbxSearchIncluded_Items";
-            this.tbxSearchIncluded_Items.Size = new System.Drawing.Size(189, 22);
+            this.tbxSearchIncluded_Items.Size = new System.Drawing.Size(251, 33);
             this.tbxSearchIncluded_Items.TabIndex = 28;
             this.tbxSearchIncluded_Items.Text = "Search";
             this.tbxSearchIncluded_Items.Click += new System.EventHandler(this.tbxSearchIncluded_Items_Click);
@@ -488,6 +488,8 @@ namespace POS02_For_Restuarent
             this.tbxPaidAmount.Name = "tbxPaidAmount";
             this.tbxPaidAmount.Size = new System.Drawing.Size(200, 22);
             this.tbxPaidAmount.TabIndex = 9;
+            this.tbxPaidAmount.Click += new System.EventHandler(this.tbxPaidAmount_Click);
+            this.tbxPaidAmount.TextChanged += new System.EventHandler(this.tbxPaidAmount_TextChanged);
             // 
             // panel7
             // 
@@ -565,6 +567,7 @@ namespace POS02_For_Restuarent
             this.tbxBarcode.Name = "tbxBarcode";
             this.tbxBarcode.Size = new System.Drawing.Size(200, 22);
             this.tbxBarcode.TabIndex = 9;
+            this.tbxBarcode.Click += new System.EventHandler(this.tbxBarcode_Click);
             this.tbxBarcode.TextChanged += new System.EventHandler(this.tbxBarcode_TextChanged);
             // 
             // panel9
@@ -734,6 +737,7 @@ namespace POS02_For_Restuarent
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMainForm_FormClosing);
             this.Load += new System.EventHandler(this.frmMainForm_Load);
+            this.Click += new System.EventHandler(this.frmMainForm_Click);
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv)).EndInit();
