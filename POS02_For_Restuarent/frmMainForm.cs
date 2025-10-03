@@ -521,18 +521,21 @@ namespace POS02_For_Restuarent
                                 }
                                 else
                                 {
-                                    
-                                    //int Existing_qty_of_Item_in_The_list = Public_Items.Barcode_item_name_and_qty[ItemNameThatUsedToFindQTY];
-                                    //Existing_qty_of_Item_in_The_list++;
-                                    //Public_Items.Barcode_item_name_and_qty[ItemNameThatUsedToFindQTY] = Existing_qty_of_Item_in_The_list;
-                                    //break;
+                                    if (Public_Items.Barcode_item_name_and_qty[ItemNameThatUsedToFindQTY] < qty_of_one_item)
+                                    {
+                                        Public_Items.Barcode_item_name_and_qty[ItemNameThatUsedToFindQTY] = qty_of_one_item;
+                                        //MessageBox.Show(Public_Items.Barcode_item_name_and_qty[ItemNameThatUsedToFindQTY].ToString());
+                                    }
+
+                                   
 
                                 }
 
-
+                               
                                 Public_Items.barcode_item_names.Remove(ItemNameThatUsedToFindQTY);
                                 ItemNameThatUsedToFindQTY = "";
                                 qty_of_one_item = 0;
+                                
 
                             }
 
@@ -542,16 +545,16 @@ namespace POS02_For_Restuarent
                         ///
                         /// Step 05 Correct and working code
                         /// 
-                        //int itemCount = 0;
-                        //itemCount = Convert.ToInt16(Public_Items.non_barcodeItem_Names.Count + Public_Items.Barcode_item_name_and_qty.Count);
-                        //int dynmicHeight = 0;
+                        int itemCount = 0;
+                        itemCount = Convert.ToInt16(Public_Items.non_barcodeItem_Names.Count + Public_Items.Barcode_item_name_and_qty.Count);
+                        int dynmicHeight = 0;
 
-                        //dynmicHeight = 200 + (itemCount * 20); /*20 is a space value that single item get from the Bill*/
+                        dynmicHeight = 200 + (itemCount * 20); /*20 is a space value that single item get from the Bill*/
 
-                        //printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custom",/*Width (80mm)*/315, /*Height*/ dynmicHeight);
+                        printDocument1.DefaultPageSettings.PaperSize = new PaperSize("Custom",/*Width (80mm)*/315, /*Height*/ dynmicHeight);
 
-                        //printPreviewDialog1.Document = printDocument1;
-                        //printPreviewDialog1.ShowDialog();
+                        printPreviewDialog1.Document = printDocument1;
+                        printPreviewDialog1.ShowDialog();
 
                     }
                 }
