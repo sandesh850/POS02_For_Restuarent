@@ -71,11 +71,23 @@ namespace POS02_For_Restuarent
 
         private void frmMainLogin_Load(object sender, EventArgs e)
         {
+            // loading xml file
+            XmlDocument xmlDocument = new XmlDocument();
+
+            xmlDocument.Load("ConnectionString.xml");
+            XmlNodeList node = xmlDocument.GetElementsByTagName("Data");
            
+            foreach (XmlNode data in node)
+            {
+                XmlDetails.DataSource = data["DataSource"].InnerText;
+                XmlDetails.Initial_catelog = data["InitialCatelog"].InnerText;
+                XmlDetails.UserID = data["UserID"].InnerText;
+                XmlDetails.password = data["Password"].InnerText;
+            }
 
             int rowCont = 0;
            
-            using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-2249HJB;Initial Catalog=Dbs_POS02_Restaurant;User ID=sa;Password=12;"))
+            using (SqlConnection con = new SqlConnection($"Data Source={XmlDetails.DataSource};Initial Catalog={XmlDetails.Initial_catelog};User ID={XmlDetails.UserID};Password={XmlDetails.password};"))
             {
                 var query = "SELECT * FROM TblLogin_details";
 

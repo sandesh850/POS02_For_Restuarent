@@ -1,6 +1,12 @@
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\bin\Debug\POS02_For_Restuarent.exe.config
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\bin\Debug\POS02_For_Restuarent.exe
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\bin\Debug\POS02_For_Restuarent.pdb
+D:\All Systems\All Exe\POS02 V - 1.2.0\POS02_For_Restuarent.exe.config
+D:\All Systems\All Exe\POS02 V - 1.2.0\POS02_For_Restuarent.exe
+D:\All Systems\All Exe\POS02 V - 1.2.0\POS02_For_Restuarent.pdb
+D:\All Systems\All Exe\POS02\POS02\Debug\POS02_For_Restuarent.exe.config
+D:\All Systems\All Exe\POS02\POS02\Debug\POS02_For_Restuarent.exe
+D:\All Systems\All Exe\POS02\POS02\Debug\POS02_For_Restuarent.pdb
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.csproj.AssemblyReference.cache
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmAddBarcode_Items.resources
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmAddLogin.resources
@@ -8,23 +14,23 @@ D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_F
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmChoice_Barcode_or_other_items.resources
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmChoose_barcode_or_other_items_toRemove.resources
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmChoose_barcode_or_other_items_toUpdate.resources
+D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmProductKey.resources
+D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmQuantityConfigeOtherItems.resources
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmRemove_Barcode_items.resources
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmRemove_other_items.resources
+D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmRemovingBarcodeItemCountConfirmation.resources
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmSubLogin_Remove_items.resources
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmSubLogin_update_items.resources
+D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmMainForm.resources
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmMainLogin.resources
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmSubLogin_Add_Items.resources
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmUpdateLogin.resources
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmUpdateOther_items.resources
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmUpdate_barcodeItems.resources
+D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmXmlCreatingDatabaseConnection.resources
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.Properties.Resources.resources
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.csproj.GenerateResource.cache
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.csproj.CoreCompileInputs.cache
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.exe
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.pdb
-D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmMainForm.resources
-D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmQuantityConfigeOtherItems.resources
-D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmRemovingBarcodeItemCountConfirmation.resources
 D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.exe.config
-D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmProductKey.resources
-D:\All Systems\All POS Systems\POS02_For_Restuarent\POS02_For_Restuarent\POS02_For_Restuarent\obj\Debug\POS02_For_Restuarent.frmXmlCreatingDatabaseConnection.resources

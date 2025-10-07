@@ -55,114 +55,134 @@ namespace POS02_For_Restuarent
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            ///
-            /// Part 01
-            /// 
+            int countNeededToRemove = Convert.ToInt32(tbxItem_count_NeedToremove.Text);
+            int selctedItem_count = Convert.ToInt32(tbxSelectedItemCount.Text);
 
-            // Step 01
-            string ItemNameFromDatabase = "";
-            var Barcode = "";
-            double price = 0;
-            int valueCount_That_need_to_delete = 0;
-
-            valueCount_That_need_to_delete = Convert.ToInt16( tbxItem_count_NeedToremove.Text);
-
-
-            // Step 02 Retrieving values that need to delete
-            if (Program.ds.Tables["TblBarcode_Items_dst"] != null)
+            if(countNeededToRemove <= 0)
             {
-                Program.ds.Tables["TblBarcode_Items_dst"].Clear();
+                MessageBox.Show("!! Invalid input !!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("!! Please input a valid number to remove !!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                tbxItem_count_NeedToremove.Clear();
             }
-
-
-            string itemName = "";
-            itemName = tbxSelectedItemName.Text;
-
-            Program.da = new SqlDataAdapter("SELECT * from TblBarcode_Items WHERE ItemName='"+itemName+"' ",Program.con);
-            Program.da.Fill(Program.ds, "TblBarcode_Items_dst");
-
-           
-            foreach(DataRow data in Program.ds.Tables["TblBarcode_Items_dst"].Rows)
+            else if(countNeededToRemove > selctedItem_count)
             {
-                /* MessageBox.Show(data["Barcode"].ToString());
-                 MessageBox.Show(data["Price"].ToString());
-                 MessageBox.Show(data["ItemName"].ToString());*/
-
-                ItemNameFromDatabase = data["ItemName"].ToString();
-                Barcode = Convert.ToString(data["Barcode"]);
-                price = Convert.ToInt32(data["Price"]);
-
-                break;
+                MessageBox.Show("!! Existing value less than input value !!","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("!! Please input a valid number to remove !!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                tbxItem_count_NeedToremove.Clear();
             }
-
-            // Step 03 Removing Item or items from the lists in public item class
-            int count = 0;
-            while(count < valueCount_That_need_to_delete)
+            else
             {
-                Public_Items.barcode_item_names.Remove(itemName);
-                Public_Items.barcode.Remove(Convert.ToDouble(Barcode));
-                Public_Items.barcode_item_prices_02.Remove(price);
-               count++;
+                ///
+                /// Part 01
+                /// 
+
+                // Step 01
+                string ItemNameFromDatabase = "";
+                var Barcode = "";
+                double price = 0;
+                int valueCount_That_need_to_delete = 0;
+
+                valueCount_That_need_to_delete = Convert.ToInt16(tbxItem_count_NeedToremove.Text);
+
+
+                // Step 02 Retrieving values that need to delete
+                if (Program.ds.Tables["TblBarcode_Items_dst"] != null)
+                {
+                    Program.ds.Tables["TblBarcode_Items_dst"].Clear();
+                }
+
+
+                string itemName = "";
+                itemName = tbxSelectedItemName.Text;
+
+                Program.da = new SqlDataAdapter("SELECT * from TblBarcode_Items WHERE ItemName='" + itemName + "' ", Program.con);
+                Program.da.Fill(Program.ds, "TblBarcode_Items_dst");
+
+
+                foreach (DataRow data in Program.ds.Tables["TblBarcode_Items_dst"].Rows)
+                {
+                    /* MessageBox.Show(data["Barcode"].ToString());
+                     MessageBox.Show(data["Price"].ToString());
+                     MessageBox.Show(data["ItemName"].ToString());*/
+
+                    ItemNameFromDatabase = data["ItemName"].ToString();
+                    Barcode = Convert.ToString(data["Barcode"]);
+                    price = Convert.ToInt32(data["Price"]);
+
+                    break;
+                }
+
+                // Step 03 Removing Item or items from the lists in public item class
+                int count = 0;
+                while (count < valueCount_That_need_to_delete)
+                {
+                    Public_Items.barcode_item_names.Remove(itemName);
+                    Public_Items.barcode.Remove(Convert.ToDouble(Barcode));
+                    Public_Items.barcode_item_prices_02.Remove(price);
+                    count++;
+                }
+
+                // Updating Barcode item name and qty list in public item class (when removing barcode item qty) | This code execute after click on print button
+                // start 
+                string SelectedItemNameToRemove = string.Empty;
+                int existingItemCount = 0;
+                int valueThatNeedToRemove = 0;
+                int newValue = 0;
+
+                SelectedItemNameToRemove = tbxSelectedItemName.Text;
+                existingItemCount = Convert.ToInt16(tbxSelectedItemCount.Text);
+                valueThatNeedToRemove = Convert.ToInt16(tbxItem_count_NeedToremove.Text);
+
+                newValue = existingItemCount - valueThatNeedToRemove;
+
+
+                if (SelectedItemNameToRemove != null)
+                {
+                    Public_Items.Barcode_item_name_and_qty[SelectedItemNameToRemove] = newValue;
+                }
+
+                if (existingItemCount == valueThatNeedToRemove) // This code is use to completely remove items from the "Barcode_item_name_and_qty" list
+                {
+                    Public_Items.Barcode_item_name_and_qty.Remove(SelectedItemNameToRemove);
+                }
+                // End
+
+
+                MessageBox.Show("Deleted", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                // Step 04 Removing item from lbxIncluded_items_to_the_bill (main form)
+                var selectedItem = _frmMainForm.lbxIncluded_items_to_the_bill.SelectedItem;
+                if (tbxItem_count_NeedToremove.Text.Equals(tbxSelectedItemCount.Text))
+                {
+                    _frmMainForm.lbxIncluded_items_to_the_bill.Items.Remove(selectedItem);
+                    MessageBox.Show("Completely remove this item", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+
+
+                //step 05 || calculating total of barcode items with existing total in tbxTotal
+                double reducingValue = 0;
+
+                reducingValue = price * Convert.ToDouble(tbxItem_count_NeedToremove.Text);
+
+                double existig_value_of_tbxTotal = Convert.ToDouble(_frmMainForm.tbxTotal.Text);
+
+                double new_total_of_both_val = existig_value_of_tbxTotal - reducingValue;
+                _frmMainForm.tbxTotal.Text = new_total_of_both_val.ToString();
+
+
+                // step 06 || calculating qty (value of tbxQty with barcode items)
+                double existing_valueOf_tbxQty = Convert.ToDouble(_frmMainForm.tbxQty.Text);
+
+                //double lenth = Public_Items.barcode_item_prices_02.Count();
+
+                double new_qty_count = existing_valueOf_tbxQty - Convert.ToDouble(tbxItem_count_NeedToremove.Text);
+                _frmMainForm.tbxQty.Text = new_qty_count.ToString();
+
+                this.Close();
             }
 
-            // Updating Barcode item name and qty list in public item class (when removing barcode item qty) | This code execute after click on print button
-            // start 
-            string SelectedItemNameToRemove = string.Empty;
-            int existingItemCount = 0;
-            int valueThatNeedToRemove = 0;
-            int newValue = 0; 
-
-            SelectedItemNameToRemove = tbxSelectedItemName.Text;
-            existingItemCount = Convert.ToInt16(tbxSelectedItemCount.Text);
-            valueThatNeedToRemove = Convert.ToInt16(tbxItem_count_NeedToremove.Text);
-
-            newValue = existingItemCount - valueThatNeedToRemove;
-
-           
-            if(SelectedItemNameToRemove != null)
-            { 
-                Public_Items.Barcode_item_name_and_qty[SelectedItemNameToRemove] = newValue;
-            }
-
-            if(existingItemCount == valueThatNeedToRemove) // This code is use to completely remove items from the "Barcode_item_name_and_qty" list
-            {
-                Public_Items.Barcode_item_name_and_qty.Remove(SelectedItemNameToRemove);
-            }
-            // End
-
-            
-            MessageBox.Show("Deleted", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-            // Step 04 Removing item from lbxIncluded_items_to_the_bill (main form)
-            var selectedItem = _frmMainForm.lbxIncluded_items_to_the_bill.SelectedItem;
-            if (tbxItem_count_NeedToremove.Text.Equals( tbxSelectedItemCount.Text) )
-            {
-                _frmMainForm.lbxIncluded_items_to_the_bill.Items.Remove(selectedItem);
-                MessageBox.Show("Completely remove this item","Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
-
-
-            //step 05 || calculating total of barcode items with existing total in tbxTotal
-            double reducingValue = 0;
-
-            reducingValue = price * Convert.ToDouble(tbxItem_count_NeedToremove.Text);
-
-            double existig_value_of_tbxTotal = Convert.ToDouble(_frmMainForm.tbxTotal.Text);
-
-            double new_total_of_both_val = existig_value_of_tbxTotal - reducingValue;
-            _frmMainForm.tbxTotal.Text = new_total_of_both_val.ToString();
-
-
-            // step 06 || calculating qty (value of tbxQty with barcode items)
-            double existing_valueOf_tbxQty = Convert.ToDouble(_frmMainForm.tbxQty.Text);
-
-            //double lenth = Public_Items.barcode_item_prices_02.Count();
-
-            double new_qty_count = existing_valueOf_tbxQty  - Convert.ToDouble(tbxItem_count_NeedToremove.Text);
-            _frmMainForm.tbxQty.Text = new_qty_count.ToString();
-
-            this.Close();
+             
 
         }
     }

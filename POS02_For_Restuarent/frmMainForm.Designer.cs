@@ -222,11 +222,11 @@ namespace POS02_For_Restuarent
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Showcard Gothic", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(316, 16);
+            this.label1.Location = new System.Drawing.Point(367, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(770, 98);
+            this.label1.Size = new System.Drawing.Size(626, 98);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Restaurant name";
+            this.label1.Text = "Business Name";
             // 
             // lblDate
             // 
